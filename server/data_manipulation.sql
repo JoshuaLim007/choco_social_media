@@ -8,6 +8,10 @@ SELECT id, email, password, display_name FROM user;
 
 SELECT id, email, password, display_name FROM user WHERE display_name = :searched_Name_Input;
 
+    --get based on id
+
+SELECT display_name FROM user WHERE id = :searched_id;
+
 --get all posts
 
 SELECT id, date, text, user_id FROM post;

@@ -56,6 +56,7 @@ app.post('/posts/createPost/:userId/:text/:date', (req,res)=>{
 
 
 
+
 app.get('/hashtags', (req, res) => {
     res.sendFile('hashtag2.html', {root: publicDir});
     console.log("Grabbing hashtags table");
@@ -71,6 +72,16 @@ app.get('/users/grabData', (req, res) => {
     con.query("SELECT id, email, password, display_name FROM user;", function(err, results, fields){
         if(err) console.log(err);
         res.send(CreateMessage('load', results));
+    });
+})
+app.get('/users/grabUserName/:userId', (req, res) => {
+    con.query(`SELECT display_name FROM user WHERE id = ${req.params.userId};`, function(err, results, fields){
+        if(err) {
+            console.log(err);
+            res.send(CreateMessage('error', null));
+        }
+        else
+            res.send(CreateMessage('load', results));
     });
 })
 app.post('/users/createUser/:username/:email/:password', (req,res)=>{
