@@ -1,7 +1,7 @@
 import * as guiMaker from "./insert_data_functions.js";
 
 //grab all posts from server
-function GrabPosts(callback){
+export function GrabPosts(callback){
     var req = new XMLHttpRequest();
 
     req.open('GET','/posts/grabData',true); // set this to POST if you would like
@@ -21,7 +21,7 @@ function GrabPosts(callback){
 //userId = uint
 //text = string
 //date = yyyy-dd-mm
-function CreatePost(userId, text, date){
+export function CreatePost(userId, text, date){
     var r = new XMLHttpRequest();
     r.open('POST', '/posts/createPost/' + userId +'/' + text + '/' + date, true); // set this to POST if you would like
     r.addEventListener('load',()=>{
@@ -31,7 +31,7 @@ function CreatePost(userId, text, date){
 }
 
 //grab all users from server
-function GrabUsers(callback){
+export function GrabUsers(callback){
     var req = new XMLHttpRequest();
 
     req.open('GET','/users/grabData',true); // set this to POST if you would like
@@ -49,7 +49,7 @@ function GrabUsers(callback){
 }
 
 //
-function CreateUser(Username, email, password){
+export function CreateUser(Username, email, password){
     var r = new XMLHttpRequest();
     r.open('POST', '/users/createUser/' + Username +'/' + email + '/' + password, true); // set this to POST if you would like
     r.addEventListener('load',()=>{

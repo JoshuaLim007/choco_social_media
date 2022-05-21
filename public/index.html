@@ -20,6 +20,7 @@
 		<link rel="stylesheet" href="/public/index.css">
 		<script type="module" src="/public/insert_data_functions.js"></script>
 		<script type="module" src="/public/index.js"></script>
+		<script type="module" src="/public/create_data_functions.js"></script>
 		<link rel="icon" type="image/x-icon">
 	</head>
 	<body class="body">
@@ -36,10 +37,24 @@
 			<div class="">
 				<label for="">Search for post</label>
 				<input type="text" placeholder="Search">
-				<button id="Post_modalbtn">Create post</button>
+				<br>
+				<div class="create_input_css">
+					<label for="create_name">Enter Display Name</label>
+					<input id="create_name" type="text" placeholder="Display Name">
+					<label for="create_userid">Enter UserID</label>
+					<input id="create_userid" type="text" placeholder="UserID">
+					<label for="create_text">Enter Text</label>
+					<input id="create_text" type="text" placeholder="Text">
+					<label for="create_date">Enter Date</label>
+					<input id="create_date" type="date" placeholder="Date">
+					<label for="create_likes">Enter Number of Likes</label>
+					<input id="create_likes" type="number" placeholder="Number">
+
+					<button id="create_post_btn">Create Post</button>
+				</div>
 			</div>
 	
-	
+			
 			<div class="content">
 				<div class="post" id="post">
 					<table>
@@ -54,39 +69,8 @@
 						</tr>
 					</table>
 				</div>
-				<!--
-				<div class="post" post_text="{{text}}" post_date="{{date}}" post_likes="{{likes}}">
-					<table>
-						<tr>
-							<th>{{display_name}}</th>
-							<th>{{user_id}}</th>
-						</tr>
-						<tr>
-							<td>{{text}}</td>
-							<td>{{date}}</td>
-							<td><a href="/public/">{{likes}}</a></td>
-						</tr>
-					</table>
-				</div>
-				-->
-			</div>
-		</div>
-		
-		<div id="myModal" class="modal">
-			<div class="modal_content">
-				<span class="close">&times;</span>
-				<div class="">
-					<label for="">Enter text</label>
-					<input type="text">
-				</div>
-				<button class="post_btn">Post your message</button>
-				<h5>Choose a hashtag</h5>
-				<button class="">hashtag</button>
-				<button class="">hashtag</button>
-				<button class="">hashtag</button>
+				
 			</div>
 		</div>
 	</body>
-	
-	<script src="/public/modal.js"></script>
 </html>
