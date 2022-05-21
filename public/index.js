@@ -1,3 +1,4 @@
+import * as guiMaker from "./insert_data_functions.js";
 
 //grab all posts from server
 function GrabPosts(callback){
@@ -57,3 +58,16 @@ function CreateUser(Username, email, password){
     r.send();
 }
 
+
+GrabPosts((re)=>{
+    if(re != null){
+
+        let l = re.length;
+        for(let i = 0; i < l; i++){
+            
+            guiMaker.InsertPost(re[i].id, re[i].user_id, re[i].text, re[i].date.split('T')[0], 0);
+
+        }
+
+    }
+});

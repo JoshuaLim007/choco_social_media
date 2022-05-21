@@ -2,7 +2,7 @@
 	Following are insert functions. they should just create tables or rows of data
 */
 
-function InsertPost(id, name, text, date, likes){
+export function InsertPost(id, name, text, date, likes){
 	var content_section = document.getElementsByClassName("content");
 	var post_div = document.createElement("div");
 	post_div.setAttribute("id", "post");
@@ -16,12 +16,11 @@ function InsertPost(id, name, text, date, likes){
 	var td_text = document.createElement("td");
 	var td_date = document.createElement("td");
 	var td_likes = document.createElement("td");
-	
-	th_name.document.createTextNode(name);
-	th_id.document.createTextNode(id);
-	td_text.document.createTextNode(text);
-	td_date.document.createTextNode(date);
-	td_likes.document.createTextNode(likes);
+	th_name.textContent = (name);
+	th_id.textContent = (id);
+	td_text.textContent = (text);
+	td_date.textContent  =(date);
+	td_likes.textContent  =(likes);
 
 	tr_1.appendChild(th_name);
 	tr_1.appendChild(th_id);
@@ -31,10 +30,10 @@ function InsertPost(id, name, text, date, likes){
 	table.appendChild(tr_1);
 	table.appendChild(tr_2);
 	post_div.appendChild(table);
-	content_section.appendChild(post_div);
+	content_section[0].appendChild(post_div);
 }
 
-function InsertUser(id, name, email, password){
+export function InsertUser(id, name, email, password){
 	const table = document.getElementById("accounts_table");
 	const tr = document.createElement("tr");
 
@@ -55,7 +54,7 @@ function InsertUser(id, name, email, password){
 	table.appendChild(tr);
 }
 
-function InsertHashtag(id, name){
+export function InsertHashtag(id, name){
 	const table = document.getElementById("hashtag_table");
 	const tr = document.createElement("tr");
 	
