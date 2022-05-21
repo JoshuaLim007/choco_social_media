@@ -1,3 +1,12 @@
+<!--
+	Pages needed: 
+		list of all accounts
+		list of all accounts user follows and followers
+		list of all hashtags
+		list of all posts within hashtag
+		list of all users who liked a post
+-->
+
 <!DOCTYPE html>
 <html lang="en">
 	<head>
@@ -23,45 +32,43 @@
 			</nav>
 		</div>
 		<div class="">
-			<label for="">Search for post</label>
-			<input type="text" placeholder="Search">
-			<button id="Post_modalbtn">Create post</button>
-		</div>
-
-
-		<div class="content">
-
-
-			
-			<div class="post">
-				<div class="post-contents">
-					<div class="">
-						<div class="post-name-container">
-							<div class="post-displayname-container">
-								display name
-							</div>
-							<div class="post-userid-container">
-								@userID
-							</div>
-						</div>
-						<div class="post-txt-container">
-							pellentesque elit ullamcorper dignissim cras tincidunt lobortis feugiat vivamus at augue eget arcu dictum varius duis at consectetur lorem donec massa sapien faucibus et molestie ac feugiat sed #lectus vestibulum mattis ullamcorper velit sed ullamcorper morbi tincidunt ornare massa eget egestas purus viverra accumsan in nisl nisi scelerisque eu ultrices
-						</div>
-						<div class="post-date-container">
-							[date]
-						</div>
-					</div>
-					<div class="post-footer">
-						<div class="post-footer-sub">
-							<button class="">delete</button>
-							<button class="">edit</button>
-						</div>
-						<div class="post-heart-container"><a href="https://web.engr.oregonstate.edu/~kwonk/choco/likes.html">[insert number]</a></div>
-					</div>
-				</div>
+			<div class="">
+				<label for="">Search for post</label>
+				<input type="text" placeholder="Search">
+				<button id="Post_modalbtn">Create post</button>
 			</div>
-
-
+	
+	
+			<div class="content">
+				<div class="post" id="post">
+					<table>
+						<tr>
+							<th id="display_name">Display Name</th>
+							<th id="user_id">UserID</th>
+						</tr>
+						<tr>
+							<td id="post_text">text</td>
+							<td id="post_date">date</td>
+							<td id="post_likes">likes</td>
+						</tr>
+					</table>
+				</div>
+				<!--
+				<div class="post" post_text="{{text}}" post_date="{{date}}" post_likes="{{likes}}">
+					<table>
+						<tr>
+							<th>{{display_name}}</th>
+							<th>{{user_id}}</th>
+						</tr>
+						<tr>
+							<td>{{text}}</td>
+							<td>{{date}}</td>
+							<td><a href="/public/">{{likes}}</a></td>
+						</tr>
+					</table>
+				</div>
+				-->
+			</div>
 		</div>
 		
 		<div id="myModal" class="modal">
@@ -79,36 +86,6 @@
 			</div>
 		</div>
 	</body>
-
-	<!--
-	<script src="/choco/index.js"></script>
-	-->
-	<!--I understand that there is the same damn script in each html, but for some reason .js files aren't working well so this is temp solution for now-->
-	<script>
-		// Get the modal
-		var modal = document.getElementById("myModal");
-		
-		// Get the button that opens the modal
-		var btn = document.getElementById("Post_modalbtn");
-		
-		// Get the <span> element that closes the modal
-		var span = document.getElementsByClassName("close")[0];
-		
-		// When the user clicks the button, open the modal 
-		btn.onclick = function() {
-		  	modal.style.display = "block";
-		}
-		
-		// When the user clicks on <span> (x), close the modal
-		span.onclick = function() {
-		  	modal.style.display = "none";
-		}
-		
-		// When the user clicks anywhere outside of the modal, close it
-		window.onclick = function(event) {
-			if (event.target == modal) {
-				modal.style.display = "none";
-			}
-		}
-	</script>
+	
+	<script src="/public/modal.js"></script>
 </html>
