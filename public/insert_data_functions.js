@@ -42,10 +42,10 @@ export function InsertUser(id, name, email, password){
 	var td_email = document.createElement("td");
 	var td_password = document.createElement("td");
 
-	td_id.createTextNode(id);
-	td_name.createTextNode(name);
-	td_email.createTextNode(email);
-	td_password.createTextNode(password);
+	td_id.textContent = (id);
+	td_name.textContent = (name);
+	td_email.textContent = (email);
+	td_password.textContent = (password);
 
 	tr.appendChild(td_id);
 	tr.appendChild(td_name);
@@ -61,8 +61,8 @@ export function InsertHashtag(id, name){
 	var td_name = document.createElement("td");
 	var td_id = document.createElement("td");
 	
-	td_name.createTextNode(name);
-	td_id.createTextNode(id);
+	td_name.textContent = (name);
+	td_id.textContent = (id);
 
 	tr.appendChild(td_name);
 	tr.appendChild(td_id);
