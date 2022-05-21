@@ -1,0 +1,170 @@
+*{
+	margin: 0;
+	box-sizing: border-box;
+}
+html, body{
+	font-family: 'Montserrat', sans-serif;
+	background-color: #007981;
+}
+
+.body{
+	display: flex;
+	justify-content: center;
+	flex-direction: row;
+}
+
+.header, .post{
+	background-color: #61BBBB;
+}
+.header{
+	float: left;
+	width: 20%;
+	height: auto;
+	padding: 10px;
+}
+.nav_ul{
+	list-style-type: none;
+}
+.nav_li{
+	margin-bottom:5px;
+}
+.nav_link{
+	color:black;
+	font-weight: bold;
+	text-decoration: none;
+}
+#Post_modalbtn{
+	background-color: #61BBBB;
+	color:black;
+	font-weight:bold;
+	text-decoration: none;
+	text-align: center;
+	cursor: pointer;
+	border: none;
+}
+
+.account-display{
+	display: flex;
+	flex-direction: column;
+}
+
+.content{
+	float: left;
+	padding: 10px;
+	width: 40%;
+}
+.user-follow{
+	display:flex;
+    flex-direction: row;
+}
+.post{
+	margin-bottom: 10px;
+	padding: 10px;
+
+	border: 1px solid #002426;
+	border-radius: 25px;
+}
+.post-name-container{
+	display:flex;
+	justify-content: flex-start;
+	flex-direction: row;
+
+	margin-bottom:5px;
+}
+.post-displayname-container{
+	font-weight: bold;
+	margin-right:10px;
+
+	cursor: pointer;
+}
+.post-userid-container{
+	font-weight: lighter;
+
+	cursor: pointer;
+}
+.post-footer{
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+}
+.post-footer-sub{
+	display: flex;
+	flex-direction: row;
+	justify-content: left;
+}
+.post-heart-container{
+	background-color: #70dcdc;
+	cursor:pointer;
+	
+	padding: 5px 10px;
+	border: none;
+	border-radius: 25px;
+
+	text-align: center;
+	text-decoration: none;
+}
+.unlike-post:after{
+	content:'[insert number]';
+}
+.unlike-post:hover:after{
+	content:'unlike post';
+}
+
+.UserRequest{
+	background-color: #61BBBB;
+
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: space-between;
+
+	margin-bottom: 10px;
+	padding:10px;
+
+	border: 1px solid #002426;
+	border-radius: 25px;
+}
+
+.modal{
+	display:none;
+	z-index: 1;
+
+	position:fixed;
+	left:0;
+	top:0;
+
+	width:100%;
+	height:100%;
+
+	overflow:auto;
+	background-color: rgb(0,0,0);
+	background-color: rgba(0,0,0,0.4);
+}
+.modal_content{
+	margin: 15% auto;
+	padding: 20px;
+	
+	width: 30%;
+	height:100px;
+
+	background-color: #61BBBB;
+	border: 1px solid #888;
+	border-radius: 10px;
+}
+.close {
+	float: right;
+	font-size: 28px;
+	font-weight: bold;
+}
+.close:hover, .close:focus {
+	color: black;
+	text-decoration: none;
+	cursor: pointer;
+}
+.post_btn{
+	float:right;
+}
+.post_btn:hover{
+	cursor: pointer;
+}
