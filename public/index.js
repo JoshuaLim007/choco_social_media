@@ -1,30 +1,22 @@
 var req = new XMLHttpRequest();
-var url = '/posts/grabData';
 
-req.open('GET',url,true); // set this to POST if you would like
-req.addEventListener('load',onLoad);
-req.addEventListener('error',onError);
-
+req.open('GET','/posts/grabData',true); // set this to POST if you would like
+req.addEventListener('load',()=>{
+    let response = req.responseText;
+    let parsedResponse = JSON.parse(response);  //list of posts
+    console.log(parsedResponse);
+});
+req.addEventListener('error',()=>{
+    console.log('error receiving async AJAX call');
+});
 req.send();
 
-function duplicateChildNodes (parentId){
-    var parent = document.getElementById(parentId);
-    NodeList.prototype.forEach = Array.prototype.forEach;
-    var children = parent.childNodes;
-    children.forEach(function(item){
-      var cln = item.cloneNode(true);
-      parent.appendChild(cln);
-    });
-};
+CreatePost(0, "test sample", "2222-22-2");
 
+//date = yyyy-dd-mm
+function CreatePost(userId, text, date){
+    var r = new XMLHttpRequest();
+    r.open('POST', '/posts/createPost/' + userId +'/' + text + '/' + date, true); // set this to POST if you would like
+    r.send();
 
-function onLoad() {
-    var response = this.responseText;
-    var parsedResponse = JSON.parse(response);
-    console.log(parsedResponse);
-}
-
-function onError() {
-  // handle error here, print message perhaps
-  console.log('error receiving async AJAX call');
 }
