@@ -4,11 +4,23 @@ const port = 3012;
 const mysql = require('mysql');
 const path = require('path');
 
+const databaseInfo = require('../sensitive.json');
+
+function CreateMessage(messageType, content){
+    var data = {
+        'type': messageType,
+        'content': content
+    };
+    var JSONdata = JSON.stringify(data);
+    return JSONdata;
+}
+
+console.log(databaseInfo);
 var con = mysql.createConnection({
-    host: "classmysql.engr.oregonstate.edu",
-    user: "cs340_limjos",
-    password: "6259",
-    database: "cs340_limjos"
+    host: databaseInfo.host,
+    user: databaseInfo.username,
+    password: databaseInfo.password,
+    database: databaseInfo.database
   });
 
 con.connect(function(err){
@@ -19,6 +31,8 @@ con.connect(function(err){
 const publicDir = path.join(__dirname, '../public');
 app.use('/public', express.static(publicDir))
 
+
+
 app.get('/posts', (req, res) => {
     res.sendFile('index.html', {root: publicDir});
 })
@@ -27,20 +41,50 @@ app.get('/posts/grabData', (req, res) => {
 
     con.query("SELECT id, date, text, user_id FROM post", function(err, results, fields){
         if(err) console.log(err);
-        var JSONdata = JSON.stringify(results);
-        res.send(JSONdata);
+        res.send(CreateMessage('load', results));
     });
 })
+app.post('/posts/createPost/:userId/:text/:date', (req,res)=>{
+    con.query(`INSERT INTO post (date, text, user_id) VALUES ('${req.params.date}', '${req.params.text}', '${req.params.userId}');`, function(err, results, fields){
+        if(err) {
+            res.send(CreateMessage('error', err.sqlMessage));
+        }
+        else 
+            console.log("creating a new post");
+    });
+})
+
 
 
 app.get('/hashtags', (req, res) => {
     res.sendFile('hashtag2.html', {root: publicDir});
     console.log("Grabbing hashtags table");
 })
+
+
 app.get('/users', (req, res) => {
     res.sendFile('users.html', {root: publicDir});
-    console.log("Grabbing users table");
 })
+app.get('/users/grabData', (req, res) => {
+    console.log("Grabbing user table");
+
+    con.query("SELECT id, email, password, display_name FROM user;", function(err, results, fields){
+        if(err) console.log(err);
+        res.send(CreateMessage('load', results));
+    });
+})
+app.post('/users/createUser/:username/:email/:password', (req,res)=>{
+    con.query(`INSERT INTO user (email, password, display_name) VALUES (${req.params.email}, ${req.params.password}, ${req.params.username});
+    `, function(err, results, fields){
+        if(err) {
+            res.send(CreateMessage('error', err.sqlMessage));
+        }
+        else 
+            console.log("creating a new post");
+    });
+})
+
+
 
 app.get('/', (req, res) => {
     res.redirect('/posts');
