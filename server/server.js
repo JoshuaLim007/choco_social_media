@@ -4,9 +4,6 @@ const port = 3012;
 const mysql = require('mysql');
 const path = require('path');
 
-
-
-
 var con = mysql.createConnection({
     host: "classmysql.engr.oregonstate.edu",
     user: "cs340_limjos",
@@ -19,34 +16,37 @@ con.connect(function(err){
     console.log("sql connected");
 })
 
+const publicDir = path.join(__dirname, '../public');
+app.use('/public', express.static(publicDir))
+
 app.get('/posts', (req, res) => {
+    res.sendFile('index.html', {root: publicDir});
+})
+app.get('/posts/grabData', (req, res) => {
     console.log("Grabbing posts table");
 
     con.query("SELECT id, date, text, user_id FROM post", function(err, results, fields){
         if(err) console.log(err);
-        //res.json(results);
-        res.sendFile(path.join(__dirname, '../public/index.html'));
+        var JSONdata = JSON.stringify(results);
+        res.send(JSONdata);
     });
 })
 
 
-
 app.get('/hashtags', (req, res) => {
-    res.sendFile(path.join(__dirname, '../public/hashtag2.html'));
+    res.sendFile('hashtag2.html', {root: publicDir});
     console.log("Grabbing hashtags table");
 })
 app.get('/users', (req, res) => {
-    res.sendFile(path.join(__dirname, '../public/users.html'));
+    res.sendFile('users.html', {root: publicDir});
     console.log("Grabbing users table");
 })
-app.get('*', (req, res) => {
-    console.log('redirecting');
+
+app.get('/', (req, res) => {
     res.redirect('/posts');
+    console.log("REDIRECT");
 })
 
-
- app.use(express.static('public'))
-
- app.listen(port, () => {
+app.listen(port, () => {
     console.log(`App listening on port ${port}`);
- })
+})
