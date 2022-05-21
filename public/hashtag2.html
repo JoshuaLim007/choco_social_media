@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>CHOCO Social Media</title>
+
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="description" content="Twitter clone">
+		<meta name="author" content="Joshua Lim Kyu Sung Kwon">
+
+		<link rel="stylesheet" src="/choco/style.css" href="https://web.engr.oregonstate.edu/~kwonk/choco/style.css">
+		<link rel="icon" href="" type="image/x-icon">
+	</head>
+	<body class="body">
+		<div class="header">
+			<nav class="nav">
+				<ul class="nav_ul">
+					<li class="nav_li"><a class="nav_link" href="https://web.engr.oregonstate.edu/~kwonk/choco/index.html">Posts</a></li>
+					<!--<li class="nav_li"><a class="nav_link" href="https://web.engr.oregonstate.edu/~kwonk/choco/account.html">Account</a></li>-->
+					<li class="nav_li"><a class="nav_link" href="https://web.engr.oregonstate.edu/~kwonk/choco/hashtag.html">Hashtag</a></li>
+					<li class="nav_li"><a class="nav_link" href="https://web.engr.oregonstate.edu/~kwonk/choco/users.html">Users</a></li>
+				</ul>
+			</nav>
+		</div>
+		<div class="content">
+            <h3>Posts with this #hashtag</h3>
+            <label for="">Search for post</label>
+            <input type="text" placeholder="Search">
+            <button>change hashtag name</button>
+            <div class="post">
+                <div class="post-contents">
+                    <div class="">
+                        <div class="post-name-container">
+                            <div class="post-displayname-container">
+                                display name
+                            </div>
+                            <div class="post-userid-container">
+                                @userID
+                            </div>
+                        </div>
+                        <div class="post-txt-container">
+                            pellentesque elit ullamcorper dignissim cras tincidunt lobortis feugiat vivamus at augue eget arcu dictum varius duis at consectetur lorem donec massa sapien faucibus et molestie ac feugiat sed #lectus vestibulum mattis ullamcorper velit sed ullamcorper morbi tincidunt ornare massa eget egestas purus viverra accumsan in nisl nisi scelerisque eu ultrices
+                        </div>
+                        <div class="post-date-container">
+                            [date]
+                        </div>
+                    </div>
+                    <div class="post-footer">
+                        <div class="post-footer-sub">
+                            <button class="">delete</button>
+                            <button class="">edit</button>
+                            <button class="">remove post</button>
+                        </div>
+                        <div class="post-heart-container">[insert number]</div>
+                    </div>
+                </div>
+            </div>
+            <div class="post">
+                <div class="post-contents">
+                    <div class="">
+                        <div class="post-name-container">
+                            <div class="post-displayname-container">
+                                display name
+                            </div>
+                            <div class="post-userid-container">
+                                @userID
+                            </div>
+                        </div>
+                        <div class="post-txt-container">
+                            pellentesque elit ullamcorper dignissim cras tincidunt lobortis feugiat vivamus at augue eget arcu dictum varius duis at consectetur lorem donec massa sapien faucibus et molestie ac feugiat sed #lectus vestibulum mattis ullamcorper velit sed ullamcorper morbi tincidunt ornare massa eget egestas purus viverra accumsan in nisl nisi scelerisque eu ultrices
+                        </div>
+                        <div class="post-date-container">
+                            [date]
+                        </div>
+                    </div>
+                    <div class="post-footer">
+                        <div class="post-footer-sub">
+                            <button class="">delete</button>
+                            <button class="">edit</button>
+                            <button class="">add post</button>
+                        </div>
+                        <div class="post-heart-container">[insert number]</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+		<div id="myModal" class="modal">
+			<div class="modal_content">
+				<span class="close">&times;</span>
+				<div class="">
+					<label for="">Enter text</label>
+					<input type="text">
+				</div>
+				<button class="post_btn">Post your message</button>
+			</div>
+		</div>
+	</body>
+
+	<script>
+		// Get the modal
+		var modal = document.getElementById("myModal");
+		
+		// Get the button that opens the modal
+		var btn = document.getElementById("Post_modalbtn");
+		
+		// Get the <span> element that closes the modal
+		var span = document.getElementsByClassName("close")[0];
+		
+		// When the user clicks the button, open the modal 
+		btn.onclick = function() {
+		  	modal.style.display = "block";
+		}
+		
+		// When the user clicks on <span> (x), close the modal
+		span.onclick = function() {
+		  	modal.style.display = "none";
+		}
+		
+		// When the user clicks anywhere outside of the modal, close it
+		window.onclick = function(event) {
+			if (event.target == modal) {
+				modal.style.display = "none";
+			}
+		}
+	</script>
+</html>
