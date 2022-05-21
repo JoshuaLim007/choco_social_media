@@ -6,20 +6,16 @@ const path = require('path');
 
 // app.use(express.static('public'));
 
-var con = mysql.createConnection({
-    host: "localhost",
-    user: "123",
-    password: "123"
-  });
+// var con = mysql.createConnection({
+//     host: "localhost",
+//     user: "123",
+//     password: "123"
+//   });
 
-con.connect(function(err){
-    if(err) throw err;
-    console.log("sql connected");
-    con.query("CREATE DATABASE mydb", function (err, result) {
-        if (err) throw err;
-        console.log("Database created");
-    });
-})
+// con.connect(function(err){
+//     if(err) console.log(err);
+//     console.log("sql connected");
+// })
 
 app.get('/posts', (req, res) => {
     res.sendFile(path.join(__dirname, '../public/index.html'));
