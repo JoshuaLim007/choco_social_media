@@ -58,16 +58,38 @@ function CreateUser(Username, email, password){
     r.send();
 }
 
+function GrabUserFromId(id, callback){
+    var r = new XMLHttpRequest();
+    r.open('GET', '/users/grabUserName/' + id, true); // set this to POST if you would like
+    r.addEventListener('load',()=>{
+        let response = r.responseText;
+        let parsedResponse = JSON.parse(response);
+        if(parsedResponse.type != 'error'){
+            console.log(parsedResponse.content);
+            callback(parsedResponse.content);
+        }
+    });
+    r.send();
+}
 
 GrabPosts((re)=>{
     if(re != null){
 
         let l = re.length;
-        for(let i = 0; i < l; i++){
-            
-            guiMaker.InsertPost(re[i].id, re[i].user_id, re[i].text, re[i].date.split('T')[0], 0);
-
-        }
-
+        recursive_async_postDOMcreation(re, 0, l);
+        
     }
 });
+
+function recursive_async_postDOMcreation(buffer, index, maxLength){
+
+    if(index >= maxLength){
+        return;
+    }
+
+    GrabUserFromId(buffer[index].user_id, (username) => {
+        guiMaker.InsertPost(buffer[index].id, username[0].display_name, buffer[index].text, buffer[index].date.split('T')[0], 0);
+        recursive_async_postDOMcreation(buffer, index + 1, maxLength);
+    });
+
+}
