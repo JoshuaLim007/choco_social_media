@@ -58,13 +58,13 @@ app.post('/posts/createPost/:userId/:text/:date', (req,res)=>{
 
 
 app.get('/hashtags', (req, res) => {
-    res.sendFile('hashtag2.html', {root: publicDir});
+    res.sendFile('all_hashtags.html', {root: publicDir});
     console.log("Grabbing hashtags table");
 })
 
 
 app.get('/users', (req, res) => {
-    res.sendFile('users.html', {root: publicDir});
+    res.sendFile('all_accounts.html', {root: publicDir});
 })
 app.get('/users/grabData', (req, res) => {
     console.log("Grabbing user table");
