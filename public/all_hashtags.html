@@ -9,20 +9,41 @@
 		<meta name="author" content="Joshua Lim Kyu Sung Kwon">
 
 		<link rel="stylesheet" href="/public/index.css">
-		<script src="/public/index.js"></script>
+		<script type="module" src="/public/insert_data_functions.js"></script>
+		<script type="module" src="/public/index.js"></script>
+		<script type="module" src="/public/create_data_functions.js"></script>
 		<link rel="icon" type="image/x-icon">
 	</head>
 	<body class="body">
 		<div class="header">
 			<nav class="nav">
 				<ul class="nav_ul">
+					<h1>LINKS</h1>
 					<li class="nav_li"><a class="nav_link" href="/posts">Posts</a></li>
 					<li class="nav_li"><a class="nav_link" href="/hashtags">Hashtag</a></li>
 					<li class="nav_li"><a class="nav_link" href="/users">Users</a></li>
 				</ul>
 			</nav>
+			<br>
+			<div class="">
+				<h3>Information</h3>
+				<p>- Enter a new hashtag name to create a hashtag</p>
+			</div>
 		</div>
-		<div class="">
+		<div class="sec_body">
+			<div class="enter_content">
+				<div class="post_search_content">
+					<label for="">Search for post</label>
+					<input type="text" placeholder="Search">
+				</div>
+				<br>
+				<div class="create_input_content">
+					<label for="create_hashtag_name">Enter Hashtag Name</label>
+					<input id="create_hashtag_name" type="text" placeholder="Hashtag Name">
+				</div>
+				
+				<button id="create_btn" class="create_btn">Create Hashtag</button>
+			</div>
 			<div class="">
 				<h1>List of all hashtags in database</h1>
 				<table id="hashtag_table">
@@ -31,8 +52,8 @@
 						<th>Hashtag ID</th>
 					</tr>
 					<tr>
-						<td id="hashtag_name"></td>
-						<td id="hashtag_id"></td>
+						<td id="hashtag_name">Hashtag_name</td>
+						<td id="hashtag_id">HashtagID</td>
 					</tr>
 				</table>
 			</div>
