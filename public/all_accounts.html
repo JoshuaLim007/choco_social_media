@@ -9,12 +9,9 @@
 		<meta name="author" content="Joshua Lim Kyu Sung Kwon">
 
 		<link rel="stylesheet" href="/public/index.css">
-		<script type="module" src="/public/insert_data_functions.js"></script>
-		<script type="module" src="/public/index.js"></script>
-		<script type="module" src="/public/create_data_functions.js"></script>
 		<link rel="icon" type="image/x-icon">
 	</head>
-	<body class="body">
+	<body id="body_section" class="body">
 		<div class="header">
 			<nav class="nav">
 				<ul class="nav_ul">
@@ -60,16 +57,23 @@
 						<th>UserID</th>
 						<th>Email</th>
 						<th>Password</th>
+						<th>Edit</th>
+						<th>Delete</th>
 					</tr>
 					<tr>
 						<td id="display_name">Display Name</td>
 						<td id="user_id">user ID</td>
 						<td id="user_email">user@email.com</td>
 						<td id="user_password">password123</td>
+						<td id=""><a>edit</a></td>
+						<td id=""><button>delete</button></td>
 					</tr>
 				</table>
 			</div>
 		</div>
 		
 	</body>
+	<script type="module" src="/public/insert_data_functions.js"></script>
+	<script type="module" src="/public/index.js"></script>
+	<script type="module" src="/public/create_data_functions.js"></script>
 </html>

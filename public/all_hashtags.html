@@ -9,9 +9,6 @@
 		<meta name="author" content="Joshua Lim Kyu Sung Kwon">
 
 		<link rel="stylesheet" href="/public/index.css">
-		<script type="module" src="/public/insert_data_functions.js"></script>
-		<script type="module" src="/public/index.js"></script>
-		<script type="module" src="/public/create_data_functions.js"></script>
 		<link rel="icon" type="image/x-icon">
 	</head>
 	<body class="body">
@@ -47,17 +44,24 @@
 			<div class="">
 				<h1>List of all hashtags in database</h1>
 				<table id="hashtag_table">
-					<tr>
+					<tr class="tr_flex">
 						<th>Hashtag Name</th>
 						<th>Hashtag ID</th>
+						<th>Edit</th>
+						<th>Delete</th>
 					</tr>
-					<tr>
+					<tr class="tr_flex">
 						<td id="hashtag_name">Hashtag_name</td>
 						<td id="hashtag_id">HashtagID</td>
+						<td id=""><a>edit</a></td>
+						<td id=""><button>delete</button></td>
 					</tr>
 				</table>
 			</div>
 		</div>
 		
 	</body>
+	<script type="module" src="/public/insert_data_functions.js"></script>
+	<script type="module" src="/public/index.js"></script>
+	<script type="module" src="/public/create_data_functions.js"></script>
 </html>

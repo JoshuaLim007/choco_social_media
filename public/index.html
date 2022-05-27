@@ -15,12 +15,9 @@
 		<meta name="author" content="Joshua Lim Kyu Sung Kwon">
 
 		<link rel="stylesheet" href="/public/index.css">
-		<script type="module" src="/public/insert_data_functions.js"></script>
-		<script type="module" src="/public/index.js"></script>
-		<script type="module" src="/public/create_data_functions.js"></script>
 		<link rel="icon" type="image/x-icon">
 	</head>
-	<body class="body">
+	<body id="post_body" class="body">
 		<div class="header">
 			<nav class="nav">
 				<ul class="nav_ul">
@@ -68,9 +65,12 @@
 			</div>
 	
 			
-			<div class="content">
-
-			</div>
+			<div id="content_div" class="content"></div>
 		</div>
 	</body>
+	
+	<script type="module" src="/public/insert_data_functions.js"></script>
+	<script type="module" src="/public/index.js"></script>
+	<script type="module" src="/public/create_data_functions.js"></script>
+	<script type="module" src="/public/update_data_functions.js"></script>
 </html>
