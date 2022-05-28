@@ -8,11 +8,9 @@ CreateFunctions.GrabUsers(()=>{
 });
 
 export function SendPostData(){
-	var name = document.getElementById("create_name").value;
 	var id = document.getElementById("create_userid").value;
 	var text = document.getElementById("create_text").value;
 	var date = document.getElementById("create_date").value;
-	var likes = document.getElementById("create_likes").value;
 
 	//console.log(id);
 	//console.log(text);
@@ -32,6 +30,7 @@ export function SendHashtagData(){
 	//CreateFunctions.CreateHashtag(name);
 }
 
+/*just use this only on specific html files
 var btn = document.getElementById("create_btn");
 btn.addEventListener("click", ()=>{
 	SendPostData();
@@ -39,3 +38,4 @@ btn.addEventListener("click", ()=>{
 	//SendHashtagData();
 	location.reload();
 })
+*/
