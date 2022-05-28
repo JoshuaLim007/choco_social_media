@@ -64,6 +64,14 @@
 	</body>
 
 	<script type="module">
+		import {SendPostData} from "./public/create_data_functions.js"
+		var btn = document.getElementById("create_btn");
+		btn.addEventListener("click", ()=>{
+			SendPostData();
+			location.reload();
+		})
+	</script>
+	<script type="module">
 		import * as main from "./public/index.js";
 		import * as sendPostData from "./public/create_data_functions.js";
 		main.GrabPosts((re)=>{
@@ -80,5 +88,5 @@
 		})
 
 	</script>
-
+	<script type="module" src="/public/update_data_functions.js"></script>
 </html>

@@ -39,6 +39,9 @@ export function InsertPost(id, name, text, date, likes){
 		//var td_likes_link = document.createElement("a");
 
 		//content_section.setAttribute("class", "content");
+		td_id.setAttribute("id", "post_id");
+		td_text.setAttribute("id", "post_text");
+		td_date.setAttribute("id", "post_date");
 		post_div.setAttribute("id", "post");
 		post_div.setAttribute("class", "post");
 		edit_btn.setAttribute("class","change_post_btn");
@@ -55,7 +58,7 @@ export function InsertPost(id, name, text, date, likes){
 		edit_btn.textContent=("edit post");
 		delete_btn.textContent=("delete post");
 		//th_name.textContent = (name);
-		th_id.textContent = ("User_ID");
+		th_id.textContent = ("Post ID");
 		th_text.textContent = ("Text");
 		th_date.textContent = ("Date");
 		td_id.textContent = (id);
@@ -99,6 +102,8 @@ export function InsertHashtag(id, name){
 	var edit = document.createElement("a");
 	var btn = document.createElement("button");
 	
+	td_id.setAttribute("id", "hashtag_id");
+
 	td_name.textContent = (name);
 	td_id.textContent = (id);
 	edit.textContent=("edit");
@@ -129,6 +134,8 @@ export function InsertUser(id, name, email, password){
 	var td_del = document.createElement("td");
 	var edit = document.createElement("a");
 	var btn = document.createElement("button");
+
+	td_id.setAttribute("id", "user_id");
 
 	td_id.textContent = (id);
 	td_name.textContent = (name);
