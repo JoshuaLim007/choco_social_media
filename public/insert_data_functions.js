@@ -103,6 +103,10 @@ export function InsertHashtag(id, name){
 	td_id.textContent = (id);
 	edit.textContent=("edit");
 	btn.textContent=("delete");
+	btn.addEventListener('click', function(){
+		main.DeleteHashtags(id, tr);
+	});
+
 
 	td_edit.appendChild(edit);
 	td_del.appendChild(btn);
