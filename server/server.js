@@ -48,19 +48,33 @@ app.get('/posts/edit/:post_id',(req, res) => {
     //console.log("Grabbing post table");
     res.sendFile('edit_post.html', {root: publicDir});
     /*
-    con.query(`SELECT * FROM post WHERE id = ${req.params.post_id};`, function(err, results, fields){
+    con.query(`SELECT * FROM post WHERE id = ${req.params.post_id};`, 
+	function(err, results, fields){
         if(err) console.log(err);
         res.send(CreateMessage('load', results));
     });
     */
 })
 app.get('/posts/edit/grab_data/:post_id',(req, res) => {
-    //console.log("Grabbing post table");
-    con.query(`SELECT * FROM post WHERE id = ${req.params.post_id};`, function(err, results, fields){
-        if(err) console.log(err);
-        res.send(CreateMessage('load', results));
+    console.log("Grabbing post table data");
+    var array= [];
+	con.query(`SELECT * FROM post WHERE id = ${req.params.post_id};`, function(err, results, fields){
+		array.push(results);
+		con.query(`SELECT h.* FROM hashtag h JOIN hashtag_post pt ON h.id = pt.hash_id JOIN post p ON pt.post_id = p.id WHERE p.id = ${req.params.post_id};`, function(err, results, fields){
+			array.push(results);
+			if(err) console.log(err);
+			res.send(CreateMessage('load', array));
+		});
     });
+
 })
+// app.get('/posts/edit/grab_hashtags/:post_id',(req, res)=>{
+//     console.log("grabbing all hashtags related to post");
+	// con.query(`SELECT h.* FROM hashtag h JOIN hashtag_post pt ON h.id = pt.hash_id JOIN post p ON pt.post_id = p.id WHERE p.id = ${req.params.post_id};`, function(err, results, fields){
+	// 	if(err) console.log(err);
+	// 	res.send(CreateMessage('load', results));
+	// });
+// })
 app.post('/posts/createPost/:userId/:text/:date', (req,res)=>{
     con.query(`INSERT INTO post (date, text, user_id) VALUES ('${req.params.date}', '${req.params.text}', '${req.params.userId}');`, function(err, results, fields){
         if(err) {

@@ -169,3 +169,13 @@ export function InsertUser(id, name, email, password){
 	tr.appendChild(td_del);
 	table.appendChild(tr);
 }
+export function InsertPostUser(name){
+	var table = document.getElementById("post_user_table");
+	var tr = document.createElement("tr");
+
+	var td_name = document.createElement("td");
+	td_name.textContent = (name);
+
+	tr.appendChild(td_name);
+	table.appendChild(tr);
+}

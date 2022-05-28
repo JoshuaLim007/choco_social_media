@@ -47,7 +47,7 @@
 						<th>Hashtag Names</th>
 					</tr>
 				</table>
-				<table id="">
+				<table id="post_user_table">
 					<tr class="">
 						<th>User Names</th>
 					</tr>
@@ -62,14 +62,17 @@
 	<script type="module">
 		import * as main from "../../public/index.js";
 		import {SendPostData} from "../../public/update_data_functions.js";
+		import {InsertPostHash} from "../../public/insert_data_functions.js";
 
 		const lastSegment = location.href.split("/").pop();
 		main.GrabPost(lastSegment, function (parameter){
-			console.log(parameter[0].date);
-			document.getElementById("create_new_text").value = parameter[0].text;
-			document.getElementById("create_new_date").value = parameter[0].date.split('T')[0];
-			
-			var btn = document.getElementById("change_btn");
+			console.log(parameter[0][1]); //undefined
+			create_new_text.value = parameter[0][0].text;
+			create_new_date.value = parameter[0][0].date.split('T')[0];
+			//InsertPostHash(parameter[0][1].name);
+			//InsertPostUser(parameter[0][2].name);
+
+			var btn = change_btn;
 			btn.addEventListener("click", ()=>{
 				SendPostData(parameter[0].id);
 			})

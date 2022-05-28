@@ -32,8 +32,30 @@ export function GrabPost(post_id, callback){
         callback(null);
         console.log('error receiving async AJAX call');
     });
+
+	//grab all hashtags related to that post and
+	//call the InsertPostHash(name) function
     req.send();
 }
+// export function GrabPostHash(post_id, callback){
+//     var req = new XMLHttpRequest();
+
+//     req.open('GET','/posts/edit/grab_hashtags/' + post_id,true); // set this to POST if you would like
+//     req.addEventListener('load',()=>{
+//         let response = req.responseText;
+//         let parsedResponse = JSON.parse(response);
+//         console.log(parsedResponse.content);
+//         callback(parsedResponse.content);
+//     });
+//     req.addEventListener('error',()=>{
+//         callback(null);
+//         console.log('error receiving async AJAX call');
+//     });
+
+// 	//grab all hashtags related to that post and
+// 	//call the InsertPostHash(name) function
+//     req.send();
+// }
 
 export function GrabHashtags(callback){
     var req = new XMLHttpRequest();
