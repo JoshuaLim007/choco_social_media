@@ -10,7 +10,7 @@ SELECT id, email, password, display_name FROM user WHERE display_name = :searche
 
     --get based on id
 
-SELECT display_name FROM user WHERE id = :searched_id;
+SELECT * FROM user WHERE id = :searched_id;
 
 --get all posts
 
@@ -97,6 +97,4 @@ SET date = :val, text = :val,
 WHERE id = :postID;
 
 --update user information
-UPDATE user
-SET email = :val, password = :val, display_name = :val
-WHERE id = :userID;
+UPDATE user SET email = :val, password = :val, display_name = :val WHERE id = :userID;

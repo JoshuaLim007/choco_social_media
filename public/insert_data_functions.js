@@ -144,6 +144,8 @@ export function InsertUser(id, name, email, password){
 	edit.textContent=("edit");
 	btn.textContent=("delete");
 
+	edit.href = '/users/edit/' + id;
+
 	btn.addEventListener('click', function(){
 		main.DeleteUser(id, tr);
 	});
