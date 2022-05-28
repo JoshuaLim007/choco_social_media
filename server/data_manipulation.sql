@@ -10,7 +10,7 @@ SELECT id, email, password, display_name FROM user WHERE display_name = :searche
 
     --get based on id
 
-SELECT display_name FROM user WHERE id = :searched_id;
+SELECT * FROM user WHERE id = :searched_id;
 
 --get all posts
 
@@ -31,6 +31,14 @@ FROM post p
 JOIN hashtag_post pt ON p.id = pt.post_id
 JOIN hashtag t ON pt.hash_id = t.id
 WHERE t.name = :hashtag_name_Input;
+
+--get all hashtags attached to a post
+
+SELECT h.*
+FROM hashtag h
+JOIN hashtag_post pt ON h.id = pt.hash_id
+JOIN post p ON pt.post_id = p.id
+WHERE p.id = :post_id;
 
 --get all followers from a user
 
@@ -81,4 +89,12 @@ INSERT INTO hashtag_post (hash_id, post_id) VALUES (:hashtagIdInput, :postIdInpu
 
 
 
+--update
 
+--update date and text value of post
+UPDATE post
+SET date = :val, text = :val,
+WHERE id = :postID;
+
+--update user information
+UPDATE user SET email = :val, password = :val, display_name = :val WHERE id = :userID;
