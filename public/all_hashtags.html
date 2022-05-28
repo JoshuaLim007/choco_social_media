@@ -68,6 +68,12 @@
 			}
 		});
 
+		document.getElementById('create_btn').addEventListener('click', function(){
+			let field1 = document.getElementById('create_hashtag_name');
+			main.CreateHashtag(field1.value);
+			location.reload();
+		});
+
 
 	</script>
 </html>

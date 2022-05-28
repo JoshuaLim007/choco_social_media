@@ -48,7 +48,16 @@ export function DeleteHashtags(id, domElement){
     });
     r.send();
 }
-
+export function CreateHashtag(name){
+    var r = new XMLHttpRequest();
+    r.open('POST', '/hashtags/create/' + name, true);
+    r.addEventListener('load',()=>{
+        let response = r.responseText;
+        let parsedResponse = JSON.parse(response);
+        console.log(parsedResponse);   
+    });
+    r.send();
+}
 //userId = uint
 //text = string
 //date = yyyy-dd-mm

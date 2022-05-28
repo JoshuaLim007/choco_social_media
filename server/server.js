@@ -82,7 +82,6 @@ app.post('/posts/deletePost/:postId', (req,res)=>{
     });
 })
 
-
 //send html page
 app.get('/hashtags', (req, res) => {
     res.sendFile('all_hashtags.html', {root: publicDir});
@@ -103,6 +102,18 @@ app.post('/hashtags/delete/:id', (req, res) => {
             res.send(CreateMessage('error', err.sqlMessage));
         else
             res.send(CreateMessage('load', 'dwadwa'));
+    });
+})
+app.post('/hashtags/create/:name', (req, res) => {
+    console.log("creating hashtag: " + req.params.name);
+    con.query(`INSERT INTO hashtag (name) VALUES ('${req.params.name}');`,
+    function(err, results, fields){
+        if(err) {
+            console.log(err);
+            res.send(CreateMessage('error', err.sqlMessage));
+        }
+        else 
+            console.log(`Creating hashtag ${req.params.name}`);
     });
 })
 
