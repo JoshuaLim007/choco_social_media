@@ -62,8 +62,15 @@
 			<div id="content_div" class="content"></div>
 		</div>
 	</body>
-	
-	<script type="module" src="/public/insert_data_functions.js"></script>
-	<script type="module" src="/public/index.js"></script>
-	<script type="module" src="/public/create_data_functions.js"></script>
+
+	<script type="module">
+		import * as main from "./public/index.js";
+		main.GrabPosts((re)=>{
+			if(re != null){
+				let l = re.length;
+				main.recursive_async_postDOMcreation(re, 0, l);
+			}
+		});
+	</script>
+
 </html>
