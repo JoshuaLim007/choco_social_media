@@ -58,7 +58,7 @@ export function CreateUser(Username, email, password){
     r.send();
 }
 
-function GrabUserFromId(id, callback){
+export function GrabUserFromId(id, callback){
     var r = new XMLHttpRequest();
     r.open('GET', '/users/grabUserName/' + id, true); // set this to POST if you would like
     r.addEventListener('load',()=>{
@@ -72,16 +72,7 @@ function GrabUserFromId(id, callback){
     r.send();
 }
 
-GrabPosts((re)=>{
-    if(re != null){
-
-        let l = re.length;
-        recursive_async_postDOMcreation(re, 0, l);
-        
-    }
-});
-
-function recursive_async_postDOMcreation(buffer, index, maxLength){
+export function recursive_async_postDOMcreation(buffer, index, maxLength){
 
     if(index >= maxLength){
         return;
@@ -97,6 +88,21 @@ function recursive_async_postDOMcreation(buffer, index, maxLength){
 export function DeletePost(id, domElement){
     var r = new XMLHttpRequest();
     r.open('POST', '/posts/deletePost/' + id, true);
+    r.addEventListener('load',()=>{
+        let response = r.responseText;
+        let parsedResponse = JSON.parse(response);
+        console.log(parsedResponse);
+        
+        if(parsedResponse.type != 'error')
+            domElement.remove();
+    
+    });
+    r.send();
+}
+export function DeleteUser(id, domElement){
+    console.log("deleting");
+    let r = new XMLHttpRequest();
+    r.open('POST', '/users/deleteUser/' + id, true);
     r.addEventListener('load',()=>{
         let response = r.responseText;
         let parsedResponse = JSON.parse(response);

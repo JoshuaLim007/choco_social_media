@@ -133,6 +133,10 @@ export function InsertUser(id, name, email, password){
 	edit.textContent=("edit");
 	btn.textContent=("delete");
 
+	btn.addEventListener('click', function(){
+		main.DeleteUser(id, tr);
+	});
+
 	td_edit.appendChild(edit);
 	td_del.appendChild(btn);
 	tr.appendChild(td_id);

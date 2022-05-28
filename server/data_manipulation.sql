@@ -49,6 +49,10 @@ WHERE user.id = relationship.follow_id;
 --DELETE
 
 --delete user
+DELETE FROM likes_post WHERE user_id = :user_id_input;
+DELETE FROM relationship WHERE user_id = :user_id_input;
+DELETE FROM relationship WHERE follow_id = :user_id_input;
+DELETE FROM post WHERE user_id = :user_id_input;
 DELETE FROM user WHERE id = :user_id_input;
 
 --delete post
@@ -58,7 +62,8 @@ DELETE FROM post WHERE id = :post_id_input;
 
 --delete hashtag
 DELETE FROM hashtag WHERE id = :hashtag_id_input;
-DELETE FROM hashtag WHERE name = :hashtag_name_input;
+    --delete by name
+    DELETE FROM hashtag WHERE name = :hashtag_name_input;
 
 -- INSERT
 
