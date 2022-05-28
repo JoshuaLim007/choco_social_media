@@ -4,11 +4,9 @@
 import * as CreateFunctions from "./index.js";
 
 export function SendPostData(){
-	var name = document.getElementById("create_name").value;
 	var id = document.getElementById("create_userid").value;
 	var text = document.getElementById("create_text").value;
 	var date = document.getElementById("create_date").value;
-	var likes = document.getElementById("create_likes").value;
 
 	//console.log(id);
 	//console.log(text);
