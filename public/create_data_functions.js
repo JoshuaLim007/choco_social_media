@@ -3,10 +3,6 @@
 */
 import * as CreateFunctions from "./index.js";
 
-CreateFunctions.GrabUsers(()=>{
-
-});
-
 export function SendPostData(){
 	var id = document.getElementById("create_userid").value;
 	var text = document.getElementById("create_text").value;
@@ -29,13 +25,3 @@ export function SendHashtagData(){
 	//hashtag_id is auto increment
 	//CreateFunctions.CreateHashtag(name);
 }
-
-/*just use this only on specific html files
-var btn = document.getElementById("create_btn");
-btn.addEventListener("click", ()=>{
-	SendPostData();
-	//SendUserData();
-	//SendHashtagData();
-	location.reload();
-})
-*/

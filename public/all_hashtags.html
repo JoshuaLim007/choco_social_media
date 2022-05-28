@@ -55,7 +55,25 @@
 		</div>
 		
 	</body>
-	<script type="module" src="/public/insert_data_functions.js"></script>
-	<script type="module" src="/public/index.js"></script>
-	<script type="module" src="/public/create_data_functions.js"></script>
+	<script type="module">
+		import * as main from "./public/index.js";
+		import * as guiMaker from "./public/insert_data_functions.js";
+
+		main.GrabHashtags(function(re){
+			if(re != null){
+				let l = re.length;
+				for(var i = 0; i < l; i++){
+					guiMaker.InsertHashtag(re[i].id , re[i].name);
+				}
+			}
+		});
+
+		document.getElementById('create_btn').addEventListener('click', function(){
+			let field1 = document.getElementById('create_hashtag_name');
+			main.CreateHashtag(field1.value);
+			location.reload();
+		});
+
+
+	</script>
 </html>
