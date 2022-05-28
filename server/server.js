@@ -173,6 +173,31 @@ app.get('/users/grabUserName/:userId', (req, res) => {
             res.send(CreateMessage('load', results));
     });
 })
+
+app.get('/users/edit/:id', (req,res)=>{
+    res.sendFile('users_edit.html', {root: publicDir});
+})
+app.get('/users/edit/data/:id', (req,res)=>{
+    con.query(`SELECT * FROM user WHERE id = ${req.params.id};`, function(err, results, fields){
+        if(err) {
+            console.log(err);
+            res.send(CreateMessage('error', null));
+        }
+        else
+            res.send(CreateMessage('load', results));
+    });
+})
+app.post('/users/edit/updateData/:id/:username/:email/:password', (req,res)=>{
+    con.query(`UPDATE user SET email = '${req.params.email}', password = '${req.params.password}', display_name = '${req.params.username}' WHERE id = '${req.params.id}';`, function(err, results, fields){
+        if(err) {
+            console.log(err);
+            res.send(CreateMessage('error', null));
+        }
+        else
+            res.send(CreateMessage('load', 'd'));
+    });
+})
+
 //create a user into the database
 app.post('/users/createUser/:username/:email/:password', (req,res)=>{
     console.log(req.params.email);
@@ -243,3 +268,4 @@ app.get('/', (req, res) => {
 app.listen(port, () => {
     console.log(`App listening on port ${port}`);
 })
+

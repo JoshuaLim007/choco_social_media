@@ -194,3 +194,45 @@ export function DeleteUser(id, domElement){
     });
     r.send();
 }
+
+
+
+
+
+
+
+
+
+
+
+export function GetUserData(id, callback){
+    var req = new XMLHttpRequest();
+
+    req.open('GET','/users/edit/data/' + id, true); // set this to POST if you would like
+    req.addEventListener('load',()=>{
+        let response = req.responseText;
+        let parsedResponse = JSON.parse(response);
+        console.log(parsedResponse.content);
+        callback(parsedResponse.content);
+    });
+    req.addEventListener('error',()=>{
+        callback(null);
+        console.log('error receiving async AJAX call');
+    });
+    req.send();
+}
+export function UpdateUserData(id, username, email, password){
+    var req = new XMLHttpRequest();
+
+    req.open('POST',`/users/edit/updateData/${id}/${username}/${email}/${password}`, true); 
+    req.addEventListener('load',()=>{
+        let response = req.responseText;
+        let parsedResponse = JSON.parse(response);
+        console.log(parsedResponse.content);
+    });
+    req.addEventListener('error',()=>{
+        callback(null);
+        console.log('error receiving async AJAX call');
+    });
+    req.send();
+}
