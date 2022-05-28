@@ -7,5 +7,6 @@
 */
 
 export function DeletePost(name, id, text, date, likes){
+	
 	return {name, id, text, date, likes};
 }
