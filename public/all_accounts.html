@@ -9,20 +9,44 @@
 		<meta name="author" content="Joshua Lim Kyu Sung Kwon">
 
 		<link rel="stylesheet" href="/public/index.css">
-		<script src="/public/index.js"></script>
 		<link rel="icon" type="image/x-icon">
 	</head>
-	<body class="body">
+	<body id="body_section" class="body">
 		<div class="header">
 			<nav class="nav">
 				<ul class="nav_ul">
+					<h1>LINKS</h1>
 					<li class="nav_li"><a class="nav_link" href="/posts">Posts</a></li>
 					<li class="nav_li"><a class="nav_link" href="/hashtags">Hashtag</a></li>
 					<li class="nav_li"><a class="nav_link" href="/users">Users</a></li>
 				</ul>
 			</nav>
+			<br>
+			<div class="">
+				<h3>Information</h3>
+				<p>- Enter a user name, email, and password to create a new user</p>
+			</div>
 		</div>
-		<div class="">
+		<div class="sec_body">
+			<div class="enter_content">
+				<div class="post_search_content">
+					<label for="">Search for user</label>
+					<input type="text" placeholder="Search">
+				</div>
+				<br>
+				<div class="create_input_content">
+					<div class="create_input_content_split">
+						<label for="create_user_name">Enter User Name</label>
+						<input id="create_user_name" type="text" placeholder="User Name">
+						<label for="create_user_email">Enter User Email</label>
+						<input id="create_user_email" type="text" placeholder="User Email">
+						<label for="create_user_password">Enter User Password</label>
+						<input id="create_user_password" type="text" placeholder="User Password">
+					</div>
+				</div>
+				
+				<button id="create_btn" class="create_btn">Create User</button>
+			</div>
 			<div class="">
 				<h1>List of all users in database</h1>
 				<!-- <input type="" id="" onkeyup="function()" placehodler="Search by name"> -->
@@ -33,16 +57,23 @@
 						<th>UserID</th>
 						<th>Email</th>
 						<th>Password</th>
+						<th>Edit</th>
+						<th>Delete</th>
 					</tr>
 					<tr>
-						<td id="display_name"></td>
-						<td id="user_id"></td>
-						<td id="user_email"></td>
-						<td id="user_password"></td>
+						<td id="display_name">Display Name</td>
+						<td id="user_id">user ID</td>
+						<td id="user_email">user@email.com</td>
+						<td id="user_password">password123</td>
+						<td id=""><a>edit</a></td>
+						<td id=""><button>delete</button></td>
 					</tr>
 				</table>
 			</div>
 		</div>
 		
 	</body>
+	<script type="module" src="/public/insert_data_functions.js"></script>
+	<script type="module" src="/public/index.js"></script>
+	<script type="module" src="/public/create_data_functions.js"></script>
 </html>

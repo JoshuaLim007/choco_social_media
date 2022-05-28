@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>CHOCO Social Media</title>
+
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="description" content="Twitter clone">
+		<meta name="author" content="Joshua Lim Kyu Sung Kwon">
+
+		<link rel="stylesheet" href="/public/index.css">
+		<script type="module" src="/public/insert_data_functions.js"></script>
+		<script type="module" src="/public/index.js"></script>
+		<script type="module" src="/public/create_data_functions.js"></script>
+		<link rel="icon" type="image/x-icon">
+	</head>
+	<body class="body">
+		<div class="header">
+			<nav class="nav">
+				<ul class="nav_ul">
+					<h1>LINKS</h1>
+					<li class="nav_li"><a class="nav_link" href="/posts">Posts</a></li>
+					<li class="nav_li"><a class="nav_link" href="/hashtags">Hashtag</a></li>
+					<li class="nav_li"><a class="nav_link" href="/users">Users</a></li>
+				</ul>
+			</nav>
+			<br>
+			<div class="">
+				<h3>Information</h3>
+				<p>
+					- Re-enter values into the input boxes
+					<br>
+					- Click the save button to save the changes
+				</p>
+			</div>
+		</div>
+		<div class="">
+			<label for="create_name">Enter Display Name</label>
+			<input id="create_name" type="text">
+			<label for="create_userid">Enter UserID</label>
+			<input id="create_userid" type="text">
+			<label for="create_text">Enter Text</label>
+			<input id="create_text" type="text">
+			<label for="create_date">Enter Date</label>
+			<input id="create_date" type="date">
+			<label for="create_likes">Enter Number of Likes</label>
+			<input id="create_likes" type="number">
+		</div>
+	</body>
+</html>

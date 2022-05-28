@@ -1,9 +1,3 @@
-<!--
-	Pages needed: 
-		list of all accounts user follows and followers
-		list of all users who liked a post
--->
-
 <!DOCTYPE html>
 <html lang="en">
 	<head>
@@ -15,9 +9,12 @@
 		<meta name="author" content="Joshua Lim Kyu Sung Kwon">
 
 		<link rel="stylesheet" href="/public/index.css">
+		<script type="module" src="/public/insert_data_functions.js"></script>
+		<script type="module" src="/public/index.js"></script>
+		<script type="module" src="/public/create_data_functions.js"></script>
 		<link rel="icon" type="image/x-icon">
 	</head>
-	<body id="post_body" class="body">
+	<body class="body">
 		<div class="header">
 			<nav class="nav">
 				<ul class="nav_ul">
@@ -39,38 +36,16 @@
 		</div>
 		<div class="sec_body">
 			<div class="enter_content">
-				<div class="post_search_content">
-					<label for="">Search for post</label>
-					<input type="text" placeholder="Search">
-				</div>
-				<br>
 				<div class="create_input_content">
 					<div class="create_input_content_split">
 						<label for="create_name">Enter Display Name</label>
 						<input id="create_name" type="text" placeholder="Display Name">
 						<label for="create_userid">Enter UserID</label>
 						<input id="create_userid" type="text" placeholder="UserID">
-						<label for="create_text">Enter Text</label>
-						<input id="create_text" type="text" placeholder="Text">
-					</div>
-					<div class="create_input_content_split">
-						<label for="create_date">Enter Date</label>
-						<input id="create_date" type="date" placeholder="Date">
-						<label for="create_likes">Enter Number of Likes</label>
-						<input id="create_likes" type="number" placeholder="Number">
 					</div>
 				</div>
 				
-				<button id="create_btn" class="create_btn">Create Post</button>
+				<button id="">Search for account</button>
 			</div>
-	
-			
-			<div id="content_div" class="content"></div>
-		</div>
 	</body>
-	
-	<script type="module" src="/public/insert_data_functions.js"></script>
-	<script type="module" src="/public/index.js"></script>
-	<script type="module" src="/public/create_data_functions.js"></script>
-	<script type="module" src="/public/update_data_functions.js"></script>
 </html>
