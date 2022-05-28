@@ -7,21 +7,30 @@ html, body{
 	background-color: #232b2b;
 	color: #e5d7ff;
 }
+a{
+	text-decoration: none;
+	color: #e5d7ff;
+}
 
 .body{
 	display: flex;
 	justify-content: center;
 	flex-direction: row;
+	align-items: flex-start;
+}
+.sec_body{
+	margin-left: 10px;
 }
 
-.header, .post{
+.header, .post, .hashtag_table{
 	background-color: #3c3f55;
 }
 .header{
-	float: left;
 	width: 150px;
-	height: 100px;
+	min-height: 100px;
 	padding: 10px;
+
+	position: relative;
 }
 .nav_ul{
 	list-style-type: none;
@@ -29,100 +38,101 @@ html, body{
 }
 .nav_li{
 	margin-bottom:5px;
+	font-size: larger;
+}
+.nav_li:hover{
+	text-decoration: underline;
 }
 .nav_link{
-	color:#e5d7ff;
 	font-weight: bold;
-	text-decoration: none;
 }
 
-.create_input_css{
+.enter_content{
+	margin: 10px;
+}
+.post_search_content{
+	margin-bottom: 5px;
+}
+.create_input_content{
 	display: flex;
-	flex-direction: column;
-	width: 200px;
+	/* flex-direction: column; */
+	/* width: 200px; */
 }
-
+.create_input_content_split{
+	width: 200px;
+	margin-right:5px;
+}
+.create_input_content_split input{
+	width: 100%;
+	margin-bottom: 5px;
+}
 .content{
 	float: left;
 	padding: 10px;
 	min-width: 400px;
 }
-.user-follow{
-	display:flex;
-    flex-direction: row;
-}
-.post{
-	margin-bottom: 10px;
+
+table{
+	width: 100%;
 	padding: 10px;
-
-	border: 1px solid #002426;
-	border-radius: 25px;
 }
-.post-name-container{
-	display:flex;
-	justify-content: flex-start;
-	flex-direction: row;
-
-	margin-bottom:5px;
+tbody{
+	display: table-row-group;
 }
-.post-displayname-container{
-	font-weight: bold;
-	margin-right:10px;
-
-	cursor: pointer;
-}
-.post-userid-container{
-	font-weight: lighter;
-
-	cursor: pointer;
-}
-.post-footer{
+tr{
+	display: table-row;
+	/*
 	display: flex;
-	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+	*/
+}
+.tr_flex{
+	display: flex;
 	justify-content: space-between;
 	align-items: center;
 }
-.post-footer-sub{
+th, td{
+	text-align: left;
+}
+td {
+	margin-right: 5px;
+}
+
+.post{
 	display: flex;
-	flex-direction: row;
-	justify-content: left;
-}
-.post-heart-container{
-	background-color: #70dcdc;
-	cursor:pointer;
-	
-	padding: 5px 10px;
-	border: none;
-	border-radius: 25px;
+	flex-direction: column;
+	align-items: flex-end;
 
-	text-align: center;
-	text-decoration: none;
-}
-.unlike-post:after{
-	content:'[insert number]';
-}
-.unlike-post:hover:after{
-	content:'unlike post';
-}
-
-.UserRequest{
-	background-color: #61BBBB;
-
-	display: flex;
-	flex-direction: row;
-	align-items: center;
-	justify-content: space-between;
-
+	padding: 10px;
 	margin-bottom: 10px;
-	padding:10px;
 
 	border: 1px solid #002426;
 	border-radius: 25px;
 }
-
-.post_btn{
-	float:right;
+.change_post_btn{
+	margin-left: 5px;
 }
-.post_btn:hover{
+.change_post_btn:hover{
 	cursor: pointer;
+}
+
+.create_btn{
+	color: #e5d7ff;
+	font-size: large;
+	
+	background-color: #3c3f55;
+	border: 1px solid #002426;
+	border-radius: 25px;
+
+	padding: 10px;
+	margin: 3px;
+}
+.create_btn:hover{
+	cursor: pointer;
+	box-shadow: 0 5px 5px 0 rgba(87, 87, 87, 0.24), 0 5px 5px 0 rgba(87, 87, 87, 0.19);
+}
+
+.hashtag_table{
+	background-color: wheat;
 }
