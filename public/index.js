@@ -93,3 +93,18 @@ function recursive_async_postDOMcreation(buffer, index, maxLength){
     });
 
 }
+
+export function DeletePost(id, domElement){
+    var r = new XMLHttpRequest();
+    r.open('POST', '/posts/deletePost/' + id, true);
+    r.addEventListener('load',()=>{
+        let response = r.responseText;
+        let parsedResponse = JSON.parse(response);
+        console.log(parsedResponse);
+        
+        if(parsedResponse.type != 'error')
+            domElement.remove();
+    
+    });
+    r.send();
+}

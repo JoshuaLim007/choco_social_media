@@ -1,3 +1,5 @@
+import * as main from "./index.js";
+
 /*
 	Following are insert functions. they should just create tables or rows of data
 */
@@ -17,6 +19,10 @@ export function InsertPost(id, name, text, date, likes){
 		var div = document.createElement("div");
 		var edit_btn = document.createElement("button");
 		var delete_btn = document.createElement("button");
+
+		delete_btn.addEventListener('click', function(){
+			main.DeletePost(id, post_div);
+		});
 
 		var tr_1 = document.createElement("tr");
 		var tr_2 = document.createElement("tr");

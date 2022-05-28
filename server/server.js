@@ -53,19 +53,56 @@ app.post('/posts/createPost/:userId/:text/:date', (req,res)=>{
             console.log("creating a new post");
     });
 })
-
-
-
-
-app.get('/hashtags', (req, res) => {
-    res.sendFile('all_hashtags.html', {root: publicDir});
-    console.log("Grabbing hashtags table");
+app.post('/posts/deletePost/:postId', (req,res)=>{
+    console.log("deleting post: " + req.params.postId);
+    con.query(`DELETE FROM likes_post WHERE post_id = ${req.params.postId}`, function(err, results, fields){
+        if(err) {
+            console.log(err.sqlMessage);
+            res.send(CreateMessage('error', err.sqlMessage));
+        }
+        else 
+            console.log("deleting a likes related to this post");
+    });
+    con.query(`DELETE FROM hashtag_post WHERE post_id = ${req.params.postId}`, function(err, results, fields){
+        if(err) {
+            console.log(err.sqlMessage);
+            res.send(CreateMessage('error', err.sqlMessage));
+        }
+        else 
+            console.log("deleting a hashtags related to this post");
+    });
+    con.query(`DELETE FROM post WHERE id = ${req.params.postId};`, function(err, results, fields){
+        if(err) {
+            console.log(err.sqlMessage);
+            res.send(CreateMessage('error', err.sqlMessage));
+        }
+        else 
+            res.send(CreateMessage('load', 'hello'));
+            console.log("deleting a new post");
+    });
 })
 
 
+//send html page
+app.get('/hashtags', (req, res) => {
+    res.sendFile('all_hashtags.html', {root: publicDir});
+})
+//get hashtags
+app.get('/hashtags/grabData', (req, res) => {
+    console.log("Grabbing hastags");
+
+    con.query("SELECT id, name FROM hashtag;", function(err, results, fields){
+        if(err) console.log(err);
+        res.send(CreateMessage('load', results));
+    });
+})
+
+
+//send users page html
 app.get('/users', (req, res) => {
     res.sendFile('all_accounts.html', {root: publicDir});
 })
+//get all users
 app.get('/users/grabData', (req, res) => {
     console.log("Grabbing user table");
 
@@ -74,6 +111,7 @@ app.get('/users/grabData', (req, res) => {
         res.send(CreateMessage('load', results));
     });
 })
+//get user name based on user id
 app.get('/users/grabUserName/:userId', (req, res) => {
     con.query(`SELECT display_name FROM user WHERE id = ${req.params.userId};`, function(err, results, fields){
         if(err) {
@@ -84,6 +122,7 @@ app.get('/users/grabUserName/:userId', (req, res) => {
             res.send(CreateMessage('load', results));
     });
 })
+//create a user into the database
 app.post('/users/createUser/:username/:email/:password', (req,res)=>{
     con.query(`INSERT INTO user (email, password, display_name) VALUES (${req.params.email}, ${req.params.password}, ${req.params.username});
     `, function(err, results, fields){
@@ -101,7 +140,6 @@ app.get('/', (req, res) => {
     res.redirect('/posts');
     console.log("REDIRECT");
 })
-
 app.listen(port, () => {
     console.log(`App listening on port ${port}`);
 })
