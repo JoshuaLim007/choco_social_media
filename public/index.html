@@ -71,12 +71,20 @@
 
 	<script type="module">
 		import * as main from "./public/index.js";
+		import * as sendPostData from "./public/create_data_functions.js";
 		main.GrabPosts((re)=>{
 			if(re != null){
 				let l = re.length;
 				main.recursive_async_postDOMcreation(re, 0, l);
 			}
 		});
+
+		var btn = document.getElementById("create_btn");
+		btn.addEventListener("click", ()=>{
+			sendPostData.SendPostData();
+			location.reload();
+		})
+
 	</script>
 
 </html>

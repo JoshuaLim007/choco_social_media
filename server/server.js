@@ -96,6 +96,15 @@ app.get('/hashtags/grabData', (req, res) => {
         res.send(CreateMessage('load', results));
     });
 })
+app.post('/hashtags/delete/:id', (req, res) => {
+    console.log("deleting hastag " + req.params.id);
+    con.query(`DELETE FROM hashtag WHERE id = ${req.params.id};`, function(err, results, fields){
+        if(err)
+            res.send(CreateMessage('error', err.sqlMessage));
+        else
+            res.send(CreateMessage('load', 'dwadwa'));
+    });
+})
 
 
 //send users page html
@@ -124,13 +133,14 @@ app.get('/users/grabUserName/:userId', (req, res) => {
 })
 //create a user into the database
 app.post('/users/createUser/:username/:email/:password', (req,res)=>{
-    con.query(`INSERT INTO user (email, password, display_name) VALUES (${req.params.email}, ${req.params.password}, ${req.params.username});
+    console.log(req.params.email);
+    con.query(`INSERT INTO user (email, password, display_name) VALUES ('${req.params.email}', '${req.params.password}', '${req.params.username}');
     `, function(err, results, fields){
         if(err) {
             res.send(CreateMessage('error', err.sqlMessage));
         }
         else 
-            console.log("creating a new post");
+            console.log(`creating a new user ('${req.params.email}', '${req.params.password}', '${req.params.username}')`);
     });
 })
 //create a user into the database

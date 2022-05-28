@@ -18,6 +18,37 @@ export function GrabPosts(callback){
     req.send();
 }
 
+export function GrabHashtags(callback){
+    var req = new XMLHttpRequest();
+
+    req.open('GET','/hashtags/grabData',true); // set this to POST if you would like
+    req.addEventListener('load',()=>{
+        let response = req.responseText;
+        let parsedResponse = JSON.parse(response);
+        console.log(parsedResponse.content);
+        callback(parsedResponse.content);
+    });
+    req.addEventListener('error',()=>{
+        callback(null);
+        console.log('error receiving async AJAX call');
+    });
+    req.send();
+}
+export function DeleteHashtags(id, domElement){
+    var r = new XMLHttpRequest();
+    r.open('POST', '/hashtags/delete/' + id, true);
+    r.addEventListener('load',()=>{
+        let response = r.responseText;
+        let parsedResponse = JSON.parse(response);
+        console.log(parsedResponse);
+        
+        if(parsedResponse.type != 'error')
+            domElement.remove();
+    
+    });
+    r.send();
+}
+
 //userId = uint
 //text = string
 //date = yyyy-dd-mm
@@ -99,6 +130,7 @@ export function DeletePost(id, domElement){
     });
     r.send();
 }
+
 export function DeleteUser(id, domElement){
     console.log("deleting");
     let r = new XMLHttpRequest();

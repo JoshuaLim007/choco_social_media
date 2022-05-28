@@ -81,9 +81,17 @@
 				let l = re.length;
 				for(var i = 0; i < l; i++){
 			
-					guiMaker.InsertUser(re[i].id, re[i].display_name, re[i].email, re[i].password)
+					guiMaker.InsertUser(re[i].display_name,re[i].id, re[i].email, re[i].password)
 				}
 			}
 		});
+		document.getElementById('create_btn').addEventListener('click', function(){
+			let field1 = document.getElementById('create_user_name');
+			let field2 = document.getElementById('create_user_email');
+			let field3 = document.getElementById('create_user_password');
+			main.CreateUser(field1.value, field2.value, field3.value);
+			location.reload();
+		});
+	
 	</script>
 </html>
