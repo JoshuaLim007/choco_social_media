@@ -2,6 +2,7 @@ import * as main from "./index.js";
 
 /*
 	Following are insert functions. they should just create tables or rows of data
+	make post neater
 */
 
 export function InsertPost(id, name, text, date, likes){
@@ -26,13 +27,16 @@ export function InsertPost(id, name, text, date, likes){
 
 		var tr_1 = document.createElement("tr");
 		var tr_2 = document.createElement("tr");
-		var th_name = document.createElement("th");
-		var th_name_link = document.createAttribute("a");
+		//var th_name = document.createElement("th");
+		//var th_name_link = document.createAttribute("a");
 		var th_id = document.createElement("th");
+		var th_text = document.createElement("th");
+		var th_date = document.createElement("th");
+		var td_id = document.createElement("td");
 		var td_text = document.createElement("td");
 		var td_date = document.createElement("td");
-		var td_likes = document.createElement("td");
-		var td_likes_link = document.createElement("a");
+		//var td_likes = document.createElement("td");
+		//var td_likes_link = document.createElement("a");
 
 		//content_section.setAttribute("class", "content");
 		post_div.setAttribute("id", "post");
@@ -42,29 +46,35 @@ export function InsertPost(id, name, text, date, likes){
 		edit_btn.setAttribute("id", "edit_post_btn");
 		delete_btn.setAttribute("id", "delete_post_btn");
 		//th_name_link.setAttribute("class", "");
-		td_likes_link.setAttribute("class", "post_td_likes_link");
+		//td_likes_link.setAttribute("class", "post_td_likes_link");
 
 		edit_btn.href="/";
-		th_name_link.href="/"; //insert followers page
-		td_likes_link.href = "/";//insert likes page
+		//th_name_link.href="/"; //insert followers page
+		//td_likes_link.href = "/";//insert likes page
 
 		edit_btn.textContent=("edit post");
 		delete_btn.textContent=("delete post");
-		th_name.textContent = (name);
-		th_id.textContent = (id);
+		//th_name.textContent = (name);
+		th_id.textContent = ("User_ID");
+		th_text.textContent = ("Text");
+		th_date.textContent = ("Date");
+		td_id.textContent = (id);
 		td_text.textContent = (text);
 		td_date.textContent  =(date);
-		td_likes_link.textContent  =(likes);
-		td_likes.textContent = ("# of likes: ");
+		//td_likes_link.textContent  =(likes);
+		//td_likes.textContent = ("# of likes: ");
 
 		//cant have a link in the header of table attributes
 		//th_name.appendChild(th_name_link);
-		td_likes.appendChild(td_likes_link);
-		tr_1.appendChild(th_name);
+		//td_likes.appendChild(td_likes_link);
+		//tr_1.appendChild(th_name);
 		tr_1.appendChild(th_id);
+		tr_1.appendChild(th_text);
+		tr_1.appendChild(th_date);
+		tr_2.appendChild(td_id);
 		tr_2.appendChild(td_text);
 		tr_2.appendChild(td_date);
-		tr_2.appendChild(td_likes);
+		//tr_2.appendChild(td_likes);
 		table.appendChild(tr_1);
 		table.appendChild(tr_2);
 		post_div.appendChild(table);

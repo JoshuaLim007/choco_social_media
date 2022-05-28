@@ -92,6 +92,9 @@ tr{
 	justify-content: space-between;
 	align-items: center;
 }
+th, td{
+	text-align: left;
+}
 td {
 	margin-right: 5px;
 }
@@ -109,9 +112,9 @@ td {
 }
 .change_post_btn{
 	margin-left: 5px;
-
-	border: 1px solid #002426;
-	border-radius: 25px;
+}
+.change_post_btn:hover{
+	cursor: pointer;
 }
 
 .create_btn{

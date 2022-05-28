@@ -6,6 +6,17 @@
 	a page refresh should just remove that entity(?)
 */
 
-export function DeletePost(name, id, text, date, likes){
-	return {name, id, text, date, likes};
+export function DeletePost(){
+	var user_id = document.getElementById("").value;
+	return user_id;
+}
+
+export function DeleteHashtag(){
+	var hash_id = document.getElementById("").value;
+	return hash_id;
+}
+
+export function DeleteUser(){
+	var user_id = document.getElementById("").value;
+	return user_id;
 }
