@@ -149,29 +149,46 @@ app.post('/users/deleteUser/:userId', (req,res)=>{
     con.query(`DELETE FROM likes_post WHERE user_id = ${req.params.userId};`, function(err, results, fields){
         if(err) {
             res.send(CreateMessage('error', err.sqlMessage));
-        }
-    });
-    con.query(`DELETE FROM relationship WHERE user_id = ${req.params.userId};`, function(err, results, fields){
-        if(err) {
-            res.send(CreateMessage('error', err.sqlMessage));
-        }
-    });
-    con.query(`DELETE FROM relationship WHERE follow_id = ${req.params.userId};`, function(err, results, fields){
-        if(err) {
-            res.send(CreateMessage('error', err.sqlMessage));
-        }
-    });
-    con.query(`DELETE FROM post WHERE user_id = ${req.params.userId};`, function(err, results, fields){
-        if(err) {
-            res.send(CreateMessage('error', err.sqlMessage));
-        }
-    });
-    con.query(`DELETE FROM user WHERE id = ${req.params.userId};`, function(err, results, fields){
-        if(err) {
-            res.send(CreateMessage('error', err.sqlMessage));
+            return;
         }
         else{
-            res.send(CreateMessage('load', 'gabagoo'));
+            con.query(`DELETE FROM relationship WHERE user_id = ${req.params.userId};`, function(err, results, fields){
+                if(err) {
+                    res.send(CreateMessage('error', err.sqlMessage));
+                    return;
+        
+                }
+                else{
+                    con.query(`DELETE FROM relationship WHERE follow_id = ${req.params.userId};`, function(err, results, fields){
+                        if(err) {
+                            res.send(CreateMessage('error', err.sqlMessage));
+                            return;
+                
+                        }
+                        else{
+                            con.query(`DELETE FROM post WHERE user_id = ${req.params.userId};`, function(err, results, fields){
+                                if(err) {
+                                    res.send(CreateMessage('error', err.sqlMessage));
+                                    return;
+                        
+                                }
+                                else{
+                                    con.query(`DELETE FROM user WHERE id = ${req.params.userId};`, function(err, results, fields){
+                                        if(err) {
+                                            res.send(CreateMessage('error', err.sqlMessage));
+                                            return;
+                                
+                                        }
+                                        else{
+                                            res.send(CreateMessage('load', 'gabagoo'));
+                                        }
+                                    });
+                                }
+                            });
+                        }
+                    });
+                }
+            });
         }
     });
 })
