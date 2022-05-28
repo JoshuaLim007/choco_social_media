@@ -54,11 +54,30 @@ app.post('/posts/createPost/:userId/:text/:date', (req,res)=>{
     });
 })
 app.post('/posts/deletePost/:postId', (req,res)=>{
-    con.query(`DELETE FROM post WHERE id = '${req.params.postId}';`, function(err, results, fields){
+    console.log("deleting post: " + req.params.postId);
+    con.query(`DELETE FROM likes_post WHERE post_id = ${req.params.postId}`, function(err, results, fields){
         if(err) {
+            console.log(err.sqlMessage);
             res.send(CreateMessage('error', err.sqlMessage));
         }
         else 
+            console.log("deleting a likes related to this post");
+    });
+    con.query(`DELETE FROM hashtag_post WHERE post_id = ${req.params.postId}`, function(err, results, fields){
+        if(err) {
+            console.log(err.sqlMessage);
+            res.send(CreateMessage('error', err.sqlMessage));
+        }
+        else 
+            console.log("deleting a hashtags related to this post");
+    });
+    con.query(`DELETE FROM post WHERE id = ${req.params.postId};`, function(err, results, fields){
+        if(err) {
+            console.log(err.sqlMessage);
+            res.send(CreateMessage('error', err.sqlMessage));
+        }
+        else 
+            res.send(CreateMessage('load', 'hello'));
             console.log("deleting a new post");
     });
 })

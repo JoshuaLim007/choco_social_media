@@ -52,6 +52,8 @@ WHERE user.id = relationship.follow_id;
 DELETE FROM user WHERE id = :user_id_input;
 
 --delete post
+DELETE FROM likes_post WHERE post_id = :post_id_input;
+DELETE FROM hashtag_post WHERE post_id = :post_id_input;
 DELETE FROM post WHERE id = :post_id_input;
 
 --delete hashtag
