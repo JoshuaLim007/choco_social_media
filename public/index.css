@@ -92,6 +92,9 @@ tr{
 	justify-content: space-between;
 	align-items: center;
 }
+th, td{
+	text-align: left;
+}
 td {
 	margin-right: 5px;
 }
