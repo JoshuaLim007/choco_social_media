@@ -18,6 +18,23 @@ export function GrabPosts(callback){
     req.send();
 }
 
+export function GrabPost(post_id, callback){
+    var req = new XMLHttpRequest();
+
+    req.open('GET','/posts/edit/grab_data/' + post_id,true); // set this to POST if you would like
+    req.addEventListener('load',()=>{
+        let response = req.responseText;
+        let parsedResponse = JSON.parse(response);
+        console.log(parsedResponse.content);
+        callback(parsedResponse.content);
+    });
+    req.addEventListener('error',()=>{
+        callback(null);
+        console.log('error receiving async AJAX call');
+    });
+    req.send();
+}
+
 //userId = uint
 //text = string
 //date = yyyy-dd-mm

@@ -18,7 +18,7 @@ export function InsertPost(id, name, text, date, likes){
 		var post_div = document.createElement("div");
 		var table = document.createElement("table");
 		var div = document.createElement("div");
-		var edit_btn = document.createElement("button");
+		var edit_btn = document.createElement("a");
 		var delete_btn = document.createElement("button");
 
 		delete_btn.addEventListener('click', function(){
@@ -51,7 +51,8 @@ export function InsertPost(id, name, text, date, likes){
 		//th_name_link.setAttribute("class", "");
 		//td_likes_link.setAttribute("class", "post_td_likes_link");
 
-		edit_btn.href="/";
+		
+		edit_btn.href="/posts/edit/" + id;
 		//th_name_link.href="/"; //insert followers page
 		//td_likes_link.href = "/";//insert likes page
 
@@ -115,6 +116,16 @@ export function InsertHashtag(id, name){
 	tr.appendChild(td_id);
 	tr.appendChild(td_edit);
 	tr.appendChild(td_del);
+	table.appendChild(tr);
+}
+export function InsertPostHash(name){
+	var table = document.getElementById("post_hash_table");
+	var tr = document.createElement("tr");
+
+	var td_name = document.createElement("td");
+	td_name.textContent = (name);
+
+	tr.appendChild(td_name);
 	table.appendChild(tr);
 }
 

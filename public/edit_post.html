@@ -9,9 +9,7 @@
 		<meta name="author" content="Joshua Lim Kyu Sung Kwon">
 
 		<link rel="stylesheet" href="/public/index.css">
-		<script type="module" src="/public/insert_data_functions.js"></script>
 		<script type="module" src="/public/index.js"></script>
-		<script type="module" src="/public/create_data_functions.js"></script>
 		<link rel="icon" type="image/x-icon">
 	</head>
 	<body class="body">
@@ -34,11 +32,47 @@
 				</p>
 			</div>
 		</div>
-		<div class="">
-			<label for="create_new_text">Enter Text</label>
-			<input id="create_new_text" type="text">
-			<label for="create_new_date">Enter Date</label>
-			<input id="create_new_date" type="date">
+		
+		<div class="edit_post_body">
+			<div class="">
+				<label for="create_new_text">Enter Text</label>
+				<input id="create_new_text" type="text">
+				<label for="create_new_date">Enter Date</label>
+				<input id="create_new_date" type="date">
+				<button id="change_btn" class="change_btn">Edit Post</button>
+			</div>
+			<div class="" style="display: flex;">
+				<table id="post_hash_table">
+					<tr class="tr_flex">
+						<th>Hashtag Names</th>
+					</tr>
+				</table>
+				<table id="">
+					<tr class="">
+						<th>User Names</th>
+					</tr>
+				</table>
+			</div>
 		</div>
 	</body>
+	<!--
+		list of users who liked post
+		list of hashtags associated
+	-->
+	<script type="module">
+		import * as main from "../../public/index.js";
+		import {SendPostData} from "../../public/update_data_functions.js";
+
+		const lastSegment = location.href.split("/").pop();
+		main.GrabPost(lastSegment, function (parameter){
+			console.log(parameter[0].date);
+			document.getElementById("create_new_text").value = parameter[0].text;
+			document.getElementById("create_new_date").value = parameter[0].date.split('T')[0];
+			
+			var btn = document.getElementById("change_btn");
+			btn.addEventListener("click", ()=>{
+				SendPostData(parameter[0].id);
+			})
+		})
+	</script>
 </html>

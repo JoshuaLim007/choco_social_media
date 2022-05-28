@@ -24,6 +24,10 @@ SELECT id, name FROM hashtag;
 
 SELECT id, name FROM hashtag WHERE name = :searched_hashtag_name_Input;
 
+-- get specific post
+
+SELECT * FROM post WHERE id = :post_id;
+
 --get all posts with that hashtag
 
 SELECT p.*

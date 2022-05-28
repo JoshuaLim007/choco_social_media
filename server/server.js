@@ -44,6 +44,23 @@ app.get('/posts/grabData', (req, res) => {
         res.send(CreateMessage('load', results));
     });
 })
+app.get('/posts/edit/:post_id',(req, res) => {
+    //console.log("Grabbing post table");
+    res.sendFile('edit_post.html', {root: publicDir});
+    /*
+    con.query(`SELECT * FROM post WHERE id = ${req.params.post_id};`, function(err, results, fields){
+        if(err) console.log(err);
+        res.send(CreateMessage('load', results));
+    });
+    */
+})
+app.get('/posts/edit/grab_data/:post_id',(req, res) => {
+    //console.log("Grabbing post table");
+    con.query(`SELECT * FROM post WHERE id = ${req.params.post_id};`, function(err, results, fields){
+        if(err) console.log(err);
+        res.send(CreateMessage('load', results));
+    });
+})
 app.post('/posts/createPost/:userId/:text/:date', (req,res)=>{
     con.query(`INSERT INTO post (date, text, user_id) VALUES ('${req.params.date}', '${req.params.text}', '${req.params.userId}');`, function(err, results, fields){
         if(err) {
