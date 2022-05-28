@@ -73,7 +73,17 @@
 		</div>
 		
 	</body>
-	<script type="module" src="/public/insert_data_functions.js"></script>
-	<script type="module" src="/public/index.js"></script>
-	<script type="module" src="/public/create_data_functions.js"></script>
+	<script type="module">
+		import * as main from "./public/index.js";
+		import * as guiMaker from "./public/insert_data_functions.js";
+		main.GrabUsers((re)=>{
+			if(re != null){
+				let l = re.length;
+				for(var i = 0; i < l; i++){
+			
+					guiMaker.InsertUser(re[i].id, re[i].display_name, re[i].email, re[i].password)
+				}
+			}
+		});
+	</script>
 </html>

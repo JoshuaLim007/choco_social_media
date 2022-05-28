@@ -133,7 +133,38 @@ app.post('/users/createUser/:username/:email/:password', (req,res)=>{
             console.log("creating a new post");
     });
 })
-
+//create a user into the database
+app.post('/users/deleteUser/:userId', (req,res)=>{
+    console.log("deleting");
+    con.query(`DELETE FROM likes_post WHERE user_id = ${req.params.userId};`, function(err, results, fields){
+        if(err) {
+            res.send(CreateMessage('error', err.sqlMessage));
+        }
+    });
+    con.query(`DELETE FROM relationship WHERE user_id = ${req.params.userId};`, function(err, results, fields){
+        if(err) {
+            res.send(CreateMessage('error', err.sqlMessage));
+        }
+    });
+    con.query(`DELETE FROM relationship WHERE follow_id = ${req.params.userId};`, function(err, results, fields){
+        if(err) {
+            res.send(CreateMessage('error', err.sqlMessage));
+        }
+    });
+    con.query(`DELETE FROM post WHERE user_id = ${req.params.userId};`, function(err, results, fields){
+        if(err) {
+            res.send(CreateMessage('error', err.sqlMessage));
+        }
+    });
+    con.query(`DELETE FROM user WHERE id = ${req.params.userId};`, function(err, results, fields){
+        if(err) {
+            res.send(CreateMessage('error', err.sqlMessage));
+        }
+        else{
+            res.send(CreateMessage('load', 'gabagoo'));
+        }
+    });
+})
 
 
 app.get('/', (req, res) => {
