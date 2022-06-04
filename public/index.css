@@ -74,7 +74,20 @@ a{
 
 table{
 	width: 100%;
+	min-width: 308px;
 	padding: 10px;
+}
+.ContentContainer{
+	margin: 15px;
+	padding: 15px;
+	background-color: #1f2325;
+	border-width: 1px;
+	border-style: solid;
+	border-color: #021b1d;
+	min-height: 158px;
+}
+.ContentContainer h3{
+	margin: 10px;
 }
 tbody{
 	display: table-row-group;

@@ -187,12 +187,7 @@ app.get('/users/grabData', (req, res) => {
 //get user name based on user id
 app.get('/users/grabUserName/:userId', (req, res) => {
     con.query(`SELECT display_name FROM user WHERE id = ${req.params.userId};`, function(err, results, fields){
-        if(err) {
-            console.log(err);
-            res.send(CreateMessage('error', null));
-        }
-        else
-            res.send(CreateMessage('load', results));
+        SendData(res, err,results);
     });
 })
 
@@ -220,7 +215,72 @@ app.post('/users/edit/updateData/:id/:username/:email/:password', (req,res)=>{
     });
 })
 
-//create a user into the database
+
+app.post('/users/edit/getFollowers/:id', (req,res)=>{
+    console.log('getting followers');
+    con.query(
+    `SELECT user.*
+    FROM user
+    INNER JOIN relationship ON relationship.follow_id = ${req.params.id}
+    WHERE user.id = relationship.user_id;`, 
+    function(err, results, fields){
+        SendData(res, err, results);
+    });
+})
+app.post('/users/edit/addFollower/:id/:follower', (req,res)=>{
+    console.log('add follower')
+    console.log(req.params.id);
+    var q = `INSERT INTO relationship (user_id, follow_id) VALUES (${req.params.follower}, ${req.params.id});`;
+    con.query(
+       q, 
+    function(err, results, fields){
+        SendData(res, err, results);
+    });
+})
+app.post('/users/edit/removeFollower/:id/:follower', (req,res)=>{
+    console.log('remove follower')
+    console.log(req.params.id);
+    var q = `DELETE FROM relationship WHERE user_id = ${req.params.follower} AND follow_id = ${req.params.id};`;
+    con.query(
+       q, 
+    function(err, results, fields){
+        SendData(res, err, results);
+    });
+})
+app.post('/users/edit/removeFollowing/:id/:following', (req,res)=>{
+    console.log('remove following')
+    console.log(req.params.id);
+    var q = `DELETE FROM relationship WHERE user_id = ${req.params.id} AND follow_id = ${req.params.following};`;
+    con.query(
+       q, 
+    function(err, results, fields){
+        SendData(res, err, results);
+    });
+})
+
+app.post('/users/edit/addFollowing/:id/:following', (req,res)=>{
+    console.log('add following')
+    console.log(req.params.id);
+    var q = `INSERT INTO relationship (user_id, follow_id) VALUES (${req.params.id}, ${req.params.following});`;
+    con.query(
+       q, 
+    function(err, results, fields){
+        SendData(res, err, results);
+    });
+})
+app.post('/users/edit/getFollowings/:id', (req,res)=>{
+    console.log('getting followings');
+
+    con.query(
+    `SELECT user.*
+    FROM user
+    INNER JOIN relationship ON relationship.user_id = ${req.params.id}
+    WHERE user.id = relationship.follow_id;;`, 
+    function(err, results, fields){
+        SendData(res, err, results);
+    });
+})
+
 app.post('/users/createUser/:username/:email/:password', (req,res)=>{
     console.log(req.params.email);
     con.query(`INSERT INTO user (email, password, display_name) VALUES ('${req.params.email}', '${req.params.password}', '${req.params.username}');
@@ -232,7 +292,6 @@ app.post('/users/createUser/:username/:email/:password', (req,res)=>{
             console.log(`creating a new user ('${req.params.email}', '${req.params.password}', '${req.params.username}')`);
     });
 })
-//create a user into the database
 app.post('/users/deleteUser/:userId', (req,res)=>{
     console.log("deleting");
     con.query(`DELETE FROM likes_post WHERE user_id = ${req.params.userId};`, function(err, results, fields){
@@ -291,3 +350,19 @@ app.listen(port, () => {
     console.log(`App listening on port ${port}`);
 })
 
+function SendData(res, err, results){
+    if(err) {
+        console.log(err);
+        res.send(CreateMessage('error', err.sqlMessage));
+    }
+    else{
+        if(results != null){
+            console.log(results);
+            res.send(CreateMessage('load', results));
+        }
+        else{
+            console.log("empty results");
+            res.send(CreateMessage('load', ''));
+        }
+    }
+}

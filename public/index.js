@@ -252,7 +252,6 @@ export function GetUserData(id, callback){
 }
 export function UpdateUserData(id, username, email, password){
     var req = new XMLHttpRequest();
-
     req.open('POST',`/users/edit/updateData/${id}/${username}/${email}/${password}`, true); 
     req.addEventListener('load',()=>{
         let response = req.responseText;
@@ -264,4 +263,85 @@ export function UpdateUserData(id, username, email, password){
         console.log('error receiving async AJAX call');
     });
     req.send();
+}
+
+
+export function GetFollowersAndFollowings(id, callback){
+
+    var req = new XMLHttpRequest();
+    var arr = {};
+    req.open('POST','/users/edit/getFollowings/' + id, true);
+    req.addEventListener('load',()=>{
+        let response = req.responseText;
+        let parsedResponse = JSON.parse(response);
+        console.log(parsedResponse);
+        if(parsedResponse.type != 'error'){
+            arr['followings'] = (parsedResponse.content);
+        }
+
+
+        req = new XMLHttpRequest();
+        req.open('POST','/users/edit/getFollowers/' + id, true);
+        req.addEventListener('load',()=>{
+            let response = req.responseText;
+            let parsedResponse = JSON.parse(response);
+            if(parsedResponse.type != 'error'){
+                arr['followers'] = (parsedResponse.content);
+                callback(arr);
+            }
+        });
+        req.send();
+
+
+    });
+    req.send();
+}
+const POST = 'POST';
+const GET = 'GET';
+
+export function AddFollower(account, follower, callback){
+    CreateRequest(POST, '/users/edit/addFollower/' + account + '/' + follower, callback);
+}
+export function AddFollowing(account, following, callback){
+    CreateRequest(POST, '/users/edit/addFollowing/' + account + '/' + following, callback);
+}
+
+
+export function CreateRequest(type, url, loadCallback, errCallback){
+    console.log('req sent');
+
+    var req = new XMLHttpRequest();
+    req.open(type, url, true);
+    req.addEventListener('load',()=>{
+        var msg = GetJsonMessage(req);
+        if(GetMessageType(msg) != 'error'){
+            if(loadCallback != null)
+                loadCallback(GetMessageData(msg));
+        }
+        else{
+            if(errCallback != null)
+                errCallback(null);
+
+            console.log('error on server side');
+        }
+    });
+    req.addEventListener('error',(e)=>{
+        if(errCallback != null)
+            errCallback(null);
+        console.log('error receiving async AJAX call');
+    });
+
+    req.send();
+}
+
+function GetJsonMessage(req){
+    let response = req.responseText;
+    let parsedResponse = JSON.parse(response);
+    return parsedResponse;
+}
+function GetMessageType(parsedResponse){
+    return parsedResponse.type;
+}
+function GetMessageData(parsedResponse){
+    return parsedResponse.content;
 }

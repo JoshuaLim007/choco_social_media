@@ -191,6 +191,7 @@ export function InsertUser(id, name, email, password){
 	tr.appendChild(td_del);
 	table.appendChild(tr);
 }
+
 export function InsertPostUser(name){
 	var table = document.getElementById("post_user_table");
 	var tr = document.createElement("tr");
@@ -199,5 +200,39 @@ export function InsertPostUser(name){
 	td_name.textContent = (name);
 
 	tr.appendChild(td_name);
+	table.appendChild(tr);
+}
+
+
+export function InsertRowToTable(tableid, rowContent, deleteFunction, editHref){
+	const table = document.getElementById(tableid);
+	const tr = document.createElement("tr");
+
+	for(var i = 0; i < rowContent.length; i++){
+		var td = document.createElement("td");
+		td.textContent = rowContent[i];
+		tr.appendChild(td);
+	}
+
+	var td = document.createElement("td");
+
+	var edit = document.createElement("a");
+	edit.href = editHref;
+	edit.textContent=("edit");
+
+	td.appendChild(edit);
+	tr.appendChild(td);
+
+	td = document.createElement("td");
+
+	var btn = document.createElement("button");
+	btn.textContent=("delete");
+	btn.addEventListener('click', function(){
+		deleteFunction(tr);
+	});
+
+	td.appendChild(btn);	
+	tr.appendChild(td);
+
 	table.appendChild(tr);
 }
