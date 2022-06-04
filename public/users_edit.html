@@ -39,40 +39,152 @@
 		</div>
         <div class="sec_body">
 			<div id="content_div" class="content">
-				<label>ID</label>
-				<input type="text" id="idField" disabled = true>
-				<label>Username</label>
-				<input type="text" id="userNameField" onchange='EnableApply()'>
-				<label>Email</label>
-				<input type="text" id="emailField" onchange='EnableApply()'>
-				<label>Password</label>
-				<input type="text" id="passwordField" onchange='EnableApply()'>
-				<button id="changesButton">Apply Changes</button>
+				<div class="">
+					<label>ID</label>
+					<input type="text" id="idField" disabled = true>
+					<label>Username</label>
+					<input type="text" id="userNameField" onchange="DisableApply()">
+					<label>Email</label>
+					<input type="text" id="emailField" onchange="DisableApply()">
+					<label>Password</label>
+					<input type="text" id="passwordField" onchange="DisableApply()">
+					<button id="changesButton">Apply Changes</button>
+				</div>
+				<div style="margin-top:10px; display: flex; align-items: flex-start; margin: 15px;">
+					<div class="ContentContainer" style="display: flex;
+					flex-direction: column;
+					align-items: center;">
+						<div>
+							<input id ="followButtonValue" type="number" onchange="EnableButton('followButton')"> Follower ID
+							<button id = "followButton" disabled = true onclick="DisableButton(this.id)"> Add Follower</button>
+						</div>
+
+
+						<h3>Followers</h3>
+						<table id="followers_table">
+							<tr class="tr_flex">
+								<!-- <th>User_ID</th>
+								<th>Display Name</th> -->
+							</tr>
+						</table>
+					</div>
+					<div class="ContentContainer" style="display: flex; flex-direction: column; align-items: center;">
+						<div>
+							<input id = "followingButtonValue" type="number" onchange="EnableButton('followingButton')"> Following ID
+							<button id = "followingButton" disabled = true onclick="DisableButton(this.id)"> Add Following</button>
+						</div>
+						<h3>Following</h3>
+						<table id="followings_table">
+							<tr class="tr_flex">
+								<!-- <th>User_ID</th>
+								<th>Display Name</th> -->
+							</tr>
+						</table>
+					</div>
+
+					<div class="ContentContainer" style="display: flex; flex-direction: column; align-items: center;">
+						<h3>User Posts</h3>
+						<a id ="userPostsRedirect">
+							<button>Go to posts</button>
+						</a>
+					</div>
+					<!-- <div class="ContentContainer" style="display: flex; flex-direction: column; align-items: center;">
+						<h3>Likes</h3>
+						<table id="likes_table">
+							<tr class="tr_flex">
+
+							</tr>
+						</table>
+					</div> -->
+
+					
+				</div>
 			</div>
 		</div>
 	</body>
 	<script>
 		changesButton.disabled = true;
-		function EnableApply(){
+		function DisableApply(){
 			changesButton.disabled = false;
 		}
+
+		function DisableButton(e){
+			document.getElementById(e).disabled = true;
+		}
+		function EnableButton(e){
+			document.getElementById(e).disabled = false;
+		}
+
+
 	</script>
     <script type="module">
 
-		import {GetUserData, UpdateUserData} from '../../public/index.js'
+		import * as main from '../../public/index.js';
+		import * as dataInsert from '../../public/insert_data_functions.js';
+
+
         let userId = location.href.split('/').pop();
 		idField.value = userId;
-		GetUserData(userId, function(results){
+
+		userPostsRedirect.href = '/posts?userId=' + userId;
+
+		main.GetUserData(userId, function(results){
 			console.log(results);
 			userNameField.value = results[0].display_name;
 			emailField.value = results[0].email;
 			passwordField.value = results[0].password;
 		})
-
 		changesButton.addEventListener('click', (e) => {
-			UpdateUserData(userId, userNameField.value, emailField.value, passwordField.value);
+			main.UpdateUserData(userId, userNameField.value, emailField.value, passwordField.value);
 			changesButton.disabled = true;
 		});
+		followButton.addEventListener('click', (e) =>{
+			main.AddFollower(userId, followButtonValue.value, (e) =>{
+				console.log(e);
+				location.reload();
+			})
+		});
+		followingButton.addEventListener('click', (e) =>{
+			main.AddFollowing(userId, followingButtonValue.value, (e) =>{
+				console.log(e);
+				location.reload();
+			})
+		});
+		main.GetFollowersAndFollowings(userId, (r) => {
+			console.log(r);
+			for(var i = 0; i < r.followers.length; i ++){
+				const id = r.followers[i].id;
+				dataInsert.InsertRowToTable(
+					'followers_table', 
+					[r.followers[i].id, r.followers[i].display_name], 
+					function(tableRow){
+						console.log("removing: " + id);
+						main.CreateRequest('POST', '/users/edit/removeFollower/' + userId + '/' + id, null, null);
+						tableRow.remove();
+					}, 
+					'/users/edit/' + r.followers[i].id
+				);
+			}
+			for(var i = 0; i < r.followings.length; i ++){
+				const id = r.followings[i].id;
+				dataInsert.InsertRowToTable(
+					'followings_table', 
+					[r.followings[i].id, r.followings[i].display_name], 
+					function(tableRow){
+						console.log("removing: " + id);
+						main.CreateRequest('POST', '/users/edit/removeFollowing/' + userId + '/' + id, null, null);
+						tableRow.remove();
+					}, 
+					'/users/edit/' + r.followings[i].id
+				);
+			}
+		});
+
+		main.CreateRequest('GET', '/users/edit/getPosts/' + userId, function(e){
+			console.log(e);
+		}, null);
+
+
 
     </script>
 

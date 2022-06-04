@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>CHOCO Social Media</title>
+
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="description" content="Twitter clone">
+		<meta name="author" content="Joshua Lim Kyu Sung Kwon">
+
+		<link rel="stylesheet" href="/public/index.css">
+		<script type="module" src="/public/index.js"></script>
+		<link rel="icon" type="image/x-icon">
+	</head>
+	<body class="body">
+		<div class="header">
+			<nav class="nav">
+				<ul class="nav_ul">
+					<h1>LINKS</h1>
+					<li class="nav_li"><a class="nav_link" href="/posts">Posts</a></li>
+					<li class="nav_li"><a class="nav_link" href="/hashtags">Hashtag</a></li>
+					<li class="nav_li"><a class="nav_link" href="/users">Users</a></li>
+				</ul>
+			</nav>
+			<br>
+			<div class="">
+				<h3>Information</h3>
+				<p>
+					- Re-enter values into the input boxes
+					<br>
+					- Click the save button to save the changes
+				</p>
+			</div>
+		</div>
+		
+		<div class="edit_post_body">
+			<!-- <div class="">
+				<label>ID</label>
+				<input type="text" id="idField" disabled = true>
+				<label for="create_new_hashname">Enter Name</label>
+				<input id="create_new_hashname" type="text" onchange="EnableApply()">
+				<button id="change_btn" class="change_btn">Edit Hashtag</button>
+			</div> -->
+			<div class="" style="display: flex;">
+				<table id="post_hash_table">
+					<tr class="tr_flex">
+						<th>Post_ID</th>
+					</tr>
+				</table>
+				<!--
+					SELECT p.*
+					FROM post p
+					JOIN hashtag_post pt ON p.id = pt.post_id
+					JOIN hashtag t ON pt.hash_id = t.id
+					WHERE t.name = :hashtag_name_Input;
+				-->
+			</div>
+		</div>
+	</body>
+	<script>
+		change_btn.disabled = true;
+		function EnableApply(){
+			change_btn.disabled = false;
+		}
+	</script>
+    <script type="module">
+		import {GetHashtagData, UpdateHashtagData} from '../../public/index.js'
+
+        let hashtagId = location.href.split('/').pop();
+		idField.value = hashtagId;
+		GetHashtagData(hashtagId, function(results){
+			console.log(results);
+			create_new_hashname.value = results[0].name;
+		})
+
+		change_btn.addEventListener('click', (e) => {
+			UpdateHashtagData(hashtagId, create_new_hashname.value);
+			change_btn.disabled = true;
+		});
+
+    </script>
+</html>

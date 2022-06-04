@@ -39,14 +39,14 @@
 		</div>
 		<div class="sec_body">
 			<div class="enter_content">
-				<div class="post_search_content">
+				<!-- <div class="post_search_content">
 					<label for="">Search for post</label>
 					<input type="text" placeholder="Search">
-				</div>
+				</div> -->
 				<br>
 				<div class="create_input_content">
 					<div class="create_input_content_split">
-						<label for="create_userid">Enter UserID</label>
+						<label for="create_userid">Enter existing UserID</label>
 						<input id="create_userid" type="text" placeholder="UserID">
 						<label for="create_text">Enter Text</label>
 						<input id="create_text" type="text" placeholder="Text">
@@ -63,20 +63,35 @@
 		</div>
 	</body>
 	<script type="module">
-		import * as main from "./public/index.js";
-		import * as sendPostData from "./public/create_data_functions.js";
-		main.GrabPosts((re)=>{
+
+		const queryString = window.location.search;
+		console.log(queryString);
+
+		import * as main from "../public/index.js";
+		import * as sendPostData from "../public/create_data_functions.js";
+		
+		main.GrabPosts(queryString, (re)=>{
 			if(re != null){
 				let l = re.length;
 				main.recursive_async_postDOMcreation(re, 0, l);
 			}
 		});
 
+		let params = (new URL(document.location)).searchParams;
+		let userId = params.get('userId'); // is the string "Jonathan Smith".
+		if(userId != null){
+			console.log(userId)
+			create_userid.value = userId;
+			create_userid.disabled = true;
+		}
+
+
 		var btn = document.getElementById("create_btn");
 		btn.addEventListener("click", ()=>{
 			sendPostData.SendPostData();
 			location.reload();
 		})
+
 
 	</script>
 	<script type="module" src="/public/update_data_functions.js"></script>

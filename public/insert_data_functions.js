@@ -18,7 +18,7 @@ export function InsertPost(id, name, text, date, likes){
 		var post_div = document.createElement("div");
 		var table = document.createElement("table");
 		var div = document.createElement("div");
-		var edit_btn = document.createElement("button");
+		var edit_btn = document.createElement("a");
 		var delete_btn = document.createElement("button");
 
 		delete_btn.addEventListener('click', function(){
@@ -51,7 +51,8 @@ export function InsertPost(id, name, text, date, likes){
 		//th_name_link.setAttribute("class", "");
 		//td_likes_link.setAttribute("class", "post_td_likes_link");
 
-		edit_btn.href="/";
+		
+		edit_btn.href="/posts/edit/" + id;
 		//th_name_link.href="/"; //insert followers page
 		//td_likes_link.href = "/";//insert likes page
 
@@ -91,6 +92,18 @@ export function InsertPost(id, name, text, date, likes){
 	}
 }
 
+export function InsertHashTagPosts(id){
+	const table = document.getElementById("post_hash_table");
+	const tr = document.createElement("tr");
+
+	var td_id = document.createElement("td");
+
+	td_id.textContent = (id);
+
+	tr.appendChild(td_id);
+	table.appendChild(tr);
+}
+
 export function InsertHashtag(id, name){
 	const table = document.getElementById("hashtag_table");
 	const tr = document.createElement("tr");
@@ -102,12 +115,20 @@ export function InsertHashtag(id, name){
 	var edit = document.createElement("a");
 	var btn = document.createElement("button");
 	
+	// tr.setAttribute("class", "tr_flex");
+	td_name.setAttribute("style", "margin-right:0px");
+	td_id.setAttribute("style", "margin-right:0px");
+	td_edit.setAttribute("style", "margin-right:0px");
+	td_del.setAttribute("style", "margin-right:0px");
 	td_id.setAttribute("id", "hashtag_id");
 
 	td_name.textContent = (name);
 	td_id.textContent = (id);
-	edit.textContent=("edit");
+	edit.textContent=("Show Posts");
 	btn.textContent=("delete");
+
+	edit.href = '/posts?hash=' + name;
+
 	btn.addEventListener('click', function(){
 		main.DeleteHashtags(id, tr);
 	});
@@ -119,6 +140,16 @@ export function InsertHashtag(id, name){
 	tr.appendChild(td_id);
 	tr.appendChild(td_edit);
 	tr.appendChild(td_del);
+	table.appendChild(tr);
+}
+export function InsertPostHash(name){
+	var table = document.getElementById("post_hash_table");
+	var tr = document.createElement("tr");
+
+	var td_name = document.createElement("td");
+	td_name.textContent = (name);
+
+	tr.appendChild(td_name);
 	table.appendChild(tr);
 }
 
@@ -158,5 +189,50 @@ export function InsertUser(id, name, email, password){
 	tr.appendChild(td_password);
 	tr.appendChild(td_edit);
 	tr.appendChild(td_del);
+	table.appendChild(tr);
+}
+
+export function InsertPostUser(name){
+	var table = document.getElementById("post_user_table");
+	var tr = document.createElement("tr");
+
+	var td_name = document.createElement("td");
+	td_name.textContent = (name);
+
+	tr.appendChild(td_name);
+	table.appendChild(tr);
+}
+
+
+export function InsertRowToTable(tableid, rowContent, deleteFunction, editHref){
+	const table = document.getElementById(tableid);
+	const tr = document.createElement("tr");
+
+	for(var i = 0; i < rowContent.length; i++){
+		var td = document.createElement("td");
+		td.textContent = rowContent[i];
+		tr.appendChild(td);
+	}
+
+	var td = document.createElement("td");
+
+	var edit = document.createElement("a");
+	edit.href = editHref;
+	edit.textContent=("edit");
+
+	td.appendChild(edit);
+	tr.appendChild(td);
+
+	td = document.createElement("td");
+
+	var btn = document.createElement("button");
+	btn.textContent=("delete");
+	btn.addEventListener('click', function(){
+		deleteFunction(tr);
+	});
+
+	td.appendChild(btn);	
+	tr.appendChild(td);
+
 	table.appendChild(tr);
 }

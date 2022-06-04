@@ -24,6 +24,21 @@ SELECT id, name FROM hashtag;
 
 SELECT id, name FROM hashtag WHERE name = :searched_hashtag_name_Input;
 
+-- get specific post
+
+SELECT * FROM post WHERE id = :post_id;
+
+-- get all posts from user
+
+SELECT * FROM post WHERE user_id = :userid;
+
+--get all users that have liked a post
+
+SELECT u.*
+FROM user u
+JOIN likes_post lp ON lp.post_id = :post_id
+WHERE lp.user_id = u.id;
+
 --get all posts with that hashtag
 
 SELECT p.*
@@ -68,10 +83,16 @@ DELETE FROM likes_post WHERE post_id = :post_id_input;
 DELETE FROM hashtag_post WHERE post_id = :post_id_input;
 DELETE FROM post WHERE id = :post_id_input;
 
+--remove hashtag from post
+DELETE FROM hashtag_post WHERE hash_id = :id AND post_id = :pId;
+
 --delete hashtag
 DELETE FROM hashtag WHERE id = :hashtag_id_input;
     --delete by name
     DELETE FROM hashtag WHERE name = :hashtag_name_input;
+
+--remove like from post
+DELETE FROM likes_post WHERE user_id = :user_id_input AND post_id = :post_id
 
 -- INSERT
 
@@ -93,7 +114,7 @@ INSERT INTO hashtag_post (hash_id, post_id) VALUES (:hashtagIdInput, :postIdInpu
 
 --update date and text value of post
 UPDATE post
-SET date = :val, text = :val,
+SET date = :val, text = :val
 WHERE id = :postID;
 
 --update user information
