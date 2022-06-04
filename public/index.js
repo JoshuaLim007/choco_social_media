@@ -196,8 +196,37 @@ export function DeleteUser(id, domElement){
 }
 
 
+export function GetHashtagData(id, callback){
+	var req = new XMLHttpRequest();
 
+	req.open('GET','/hashtags/edit/data/' + id, true); // set this to POST if you would like
+	req.addEventListener('load',()=>{
+		let response = req.responseText;
+		let parsedResponse = JSON.parse(response);
+		console.log(parsedResponse.content);
+		callback(parsedResponse.content);
+	});
+	req.addEventListener('error',()=>{
+		callback(null);
+		console.log('error receiving async AJAX call');
+	});
+	req.send();
+}
+export function UpdateHashtagData(id, hashtagname){
+    var req = new XMLHttpRequest();
 
+    req.open('POST',`/hashtags/edit/updateData/${id}/${hashtagname}`, true); 
+    req.addEventListener('load',()=>{
+        let response = req.responseText;
+        let parsedResponse = JSON.parse(response);
+        console.log(parsedResponse.content); //outputs d which makes the name undefined
+    });
+    req.addEventListener('error',()=>{
+        callback(null);
+        console.log('error receiving async AJAX call');
+    });
+    req.send();
+}
 
 
 

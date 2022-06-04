@@ -92,6 +92,18 @@ export function InsertPost(id, name, text, date, likes){
 	}
 }
 
+export function InsertHashTagPosts(id){
+	const table = document.getElementById("post_hash_table");
+	const tr = document.createElement("tr");
+
+	var td_id = document.createElement("td");
+
+	td_id.textContent = (id);
+
+	tr.appendChild(td_id);
+	table.appendChild(tr);
+}
+
 export function InsertHashtag(id, name){
 	const table = document.getElementById("hashtag_table");
 	const tr = document.createElement("tr");
@@ -103,12 +115,20 @@ export function InsertHashtag(id, name){
 	var edit = document.createElement("a");
 	var btn = document.createElement("button");
 	
+	// tr.setAttribute("class", "tr_flex");
+	td_name.setAttribute("style", "margin-right:0px");
+	td_id.setAttribute("style", "margin-right:0px");
+	td_edit.setAttribute("style", "margin-right:0px");
+	td_del.setAttribute("style", "margin-right:0px");
 	td_id.setAttribute("id", "hashtag_id");
 
 	td_name.textContent = (name);
 	td_id.textContent = (id);
 	edit.textContent=("edit");
 	btn.textContent=("delete");
+
+	edit.href = '/hashtags/edit/' + id;
+
 	btn.addEventListener('click', function(){
 		main.DeleteHashtags(id, tr);
 	});

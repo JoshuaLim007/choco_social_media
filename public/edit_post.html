@@ -42,16 +42,36 @@
 				<button id="change_btn" class="change_btn">Edit Post</button>
 			</div>
 			<div class="" style="display: flex;">
-				<table id="post_hash_table">
-					<tr class="tr_flex">
-						<th>Hashtag Names</th>
-					</tr>
-				</table>
-				<table id="post_user_table">
-					<tr class="">
-						<th>User Names</th>
-					</tr>
-				</table>
+				<div>
+					<h3>Hashtags used in post</h3>
+					<table id="post_hash_table">
+						<tr class="tr_flex">
+							<th>Hashtag IDs</th>
+							<th>Hashtag Names</th>
+						</tr>
+					</table>
+					<!--
+						SELECT h.*
+						FROM hashtag h
+						JOIN hashtag_post pt ON h.id = pt.hash_id
+						JOIN post p ON pt.post_id = p.id
+						WHERE p.id = :post_id;
+					-->
+				</div>
+				<div>
+					<h3>Users who liked the post</h3>
+					<table id="post_user_table">
+						<tr class="">
+							<th>User IDs</th>
+							<th>User Names</th>
+						</tr>
+					</table>
+					<!--
+						SELECT u.*
+						FROM user u
+						WHERE u.id = :user_id;
+					-->
+				</div>
 			</div>
 		</div>
 	</body>

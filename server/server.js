@@ -147,7 +147,29 @@ app.post('/hashtags/create/:name', (req, res) => {
             console.log(`Creating hashtag ${req.params.name}`);
     });
 })
-
+app.get('/hashtags/edit/:id', (req,res)=>{
+    res.sendFile('edit_hashtag.html', {root: publicDir});
+})
+app.get('/hashtags/edit/data/:id', (req,res)=>{
+    con.query(`SELECT * FROM hashtag WHERE id = ${req.params.id};`, function(err, results, fields){
+        if(err) {
+            console.log(err);
+            res.send(CreateMessage('error', null));
+        }
+        else
+            res.send(CreateMessage('load', results));
+    });
+})
+app.post('/hashtags/edit/updateData/:id/:hashtagname', (req,res)=>{
+    con.query(`UPDATE hashtag SET name = '${req.params.name}' WHERE id = '${req.params.id}';`, function(err, results, fields){
+        if(err) {
+            console.log(err);
+            res.send(CreateMessage('error', null));
+        }
+        else
+            res.send(CreateMessage('load', 'd'));
+    });
+})
 
 //send users page html
 app.get('/users', (req, res) => {

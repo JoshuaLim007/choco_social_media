@@ -39,15 +39,51 @@
 		</div>
         <div class="sec_body">
 			<div id="content_div" class="content">
-				<label>ID</label>
-				<input type="text" id="idField" disabled = true>
-				<label>Username</label>
-				<input type="text" id="userNameField" onchange='EnableApply()'>
-				<label>Email</label>
-				<input type="text" id="emailField" onchange='EnableApply()'>
-				<label>Password</label>
-				<input type="text" id="passwordField" onchange='EnableApply()'>
-				<button id="changesButton">Apply Changes</button>
+				<div class="">
+					<label>ID</label>
+					<input type="text" id="idField" disabled = true>
+					<label>Username</label>
+					<input type="text" id="userNameField" onchange='EnableApply()'>
+					<label>Email</label>
+					<input type="text" id="emailField" onchange='EnableApply()'>
+					<label>Password</label>
+					<input type="text" id="passwordField" onchange='EnableApply()'>
+					<button id="changesButton">Apply Changes</button>
+				</div>
+				<div style="margin-top:10px; display: flex; align-items: center;">
+					<div class="" style="display: flex;
+					flex-direction: column;
+					align-items: center;">
+						<h3>Followers</h3>
+						<table id="followers_table">
+							<tr class="tr_flex">
+								<th>User_ID</th>
+								<th>Display Name</th>
+							</tr>
+						</table>
+						<!--
+							SELECT user.*
+							FROM user
+							INNER JOIN relationship ON relationship.follow_id = :user_id_input
+							WHERE user.id = relationship.user_id;
+						-->
+					</div>
+					<div class="" style="display: flex; flex-direction: column; align-items: center;">
+						<h3>Following</h3>
+						<table id="following_table">
+							<tr class="tr_flex">
+								<th>User_ID</th>
+								<th>Display Name</th>
+							</tr>
+						</table>
+						<!--
+							SELECT user.*
+							FROM user
+							INNER JOIN relationship ON relationship.user_id = :user_id_input
+							WHERE user.id = relationship.follow_id;
+						-->
+					</div>
+				</div>
 			</div>
 		</div>
 	</body>
