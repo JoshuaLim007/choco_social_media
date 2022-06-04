@@ -5,7 +5,7 @@ import * as main from "./index.js";
 	make post neater
 */
 
-export function InsertPost(id, name, text, date, likes){
+export function InsertPost(id, userid, text, date){
 	//bc some pages expect the content_section div to exist since the index.js is calling this function on every page (since the index.js file is called on every page)
 	//probably have to do a conditional for all the other functions(?)
 
@@ -27,11 +27,11 @@ export function InsertPost(id, name, text, date, likes){
 
 		var tr_1 = document.createElement("tr");
 		var tr_2 = document.createElement("tr");
-		//var th_name = document.createElement("th");
-		//var th_name_link = document.createAttribute("a");
+		var th_userid = document.createElement("th");
 		var th_id = document.createElement("th");
 		var th_text = document.createElement("th");
 		var th_date = document.createElement("th");
+		var td_userid = document.createElement("td");
 		var td_id = document.createElement("td");
 		var td_text = document.createElement("td");
 		var td_date = document.createElement("td");
@@ -58,10 +58,11 @@ export function InsertPost(id, name, text, date, likes){
 
 		edit_btn.textContent=("edit post");
 		delete_btn.textContent=("delete post");
-		//th_name.textContent = (name);
+		th_userid.textContent = ("User ID");
 		th_id.textContent = ("Post ID");
 		th_text.textContent = ("Text");
 		th_date.textContent = ("Date");
+		td_userid.textContent = (userid);
 		td_id.textContent = (id);
 		td_text.textContent = (text);
 		td_date.textContent  =(date);
@@ -71,10 +72,11 @@ export function InsertPost(id, name, text, date, likes){
 		//cant have a link in the header of table attributes
 		//th_name.appendChild(th_name_link);
 		//td_likes.appendChild(td_likes_link);
-		//tr_1.appendChild(th_name);
+		tr_1.appendChild(th_userid);
 		tr_1.appendChild(th_id);
 		tr_1.appendChild(th_text);
 		tr_1.appendChild(th_date);
+		tr_2.appendChild(td_userid);
 		tr_2.appendChild(td_id);
 		tr_2.appendChild(td_text);
 		tr_2.appendChild(td_date);

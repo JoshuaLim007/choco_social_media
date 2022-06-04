@@ -31,7 +31,7 @@
 			<div class="enter_content">
 				<div class="post_search_content">
 					<label for="">Search for hashtag</label>
-					<input type="text" placeholder="Search">
+					<input type="text" placeholder="Search" id="hashtag_search_input" onkeyup="SearchFunction()">
 				</div>
 				<br>
 				<div class="create_input_content">
@@ -75,5 +75,27 @@
 		});
 
 
+	</script>
+	<script>
+		function SearchFunction(){
+			var input, filter, table, tr, td, txtValue;
+			input = document.getElementById("hashtag_search_input");
+			filter = input.value;
+			table = document.getElementById("hashtag_table");
+			tr = table.getElementsByTagName("tr");
+			for (var i = 0; i < tr.length; i++) {
+				td = tr[i].getElementsByTagName("td")[0];
+				if (td) {
+					txtValue = td.textContent || td.innerText;//this gets the value
+					//console.log(tr[i]);
+					if (txtValue.indexOf(filter) > -1) {
+						tr[i].style.display = "";
+					}
+					else {
+						tr[i].style.display = "none";
+					}
+				}
+			}
+		}
 	</script>
 </html>
