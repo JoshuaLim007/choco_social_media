@@ -31,9 +31,20 @@ con.connect(function(err){
 const publicDir = path.join(__dirname, '../public');
 app.use('/public', express.static(publicDir))
 
+app.get('/posts/getlikes/:postId', (req,res)=>{
+    console.log("Grabbing likes from post");
 
+    con.query(`SELECT u.*
+    FROM user u
+    JOIN likes_post lp ON lp.post_id = ${req.params.postId}
+    WHERE lp.user_id = u.id;`, function(err, results, fields){
+        if(err) console.log(err);
+        res.send(CreateMessage('load', results));
+    });
+})
 
 app.get('/posts', (req, res) => {
+    console.log(req.params);
     res.sendFile('index.html', {root: publicDir});
 })
 app.get('/posts/grabData', (req, res) => {
@@ -44,16 +55,114 @@ app.get('/posts/grabData', (req, res) => {
         res.send(CreateMessage('load', results));
     });
 })
+app.get('/posts/grabData/*', (req, res) => {
+    console.log("Grabbing posts table with filters");
+    console.log(req.params);
+
+    var filter = req.params['0'].split('&')[0].split('=');
+    var type = filter[0];
+    var value = filter[1];
+    console.log(type);
+    console.log(value);
+
+    if(type == 'userId'){
+        con.query(`SELECT * FROM post WHERE user_id = ${value};`, function(err, results, fields){
+            SendData(res,err,results);
+        });
+    }
+    else if(type == 'hash'){
+        con.query(`SELECT p.*
+        FROM post p
+        JOIN hashtag_post pt ON p.id = pt.post_id
+        JOIN hashtag t ON pt.hash_id = t.id
+        WHERE t.name = '${value}';`, function(err, results, fields){
+            SendData(res,err,results);
+        });
+    }
+
+
+})
+
+
 app.get('/posts/edit/:post_id',(req, res) => {
-    //console.log("Grabbing post table");
     res.sendFile('edit_post.html', {root: publicDir});
-    /*
-    con.query(`SELECT * FROM post WHERE id = ${req.params.post_id};`, 
-	function(err, results, fields){
-        if(err) console.log(err);
-        res.send(CreateMessage('load', results));
+})
+app.post('/posts/edit/:post_id/:text/:date',(req, res) => {
+
+    console.log('updating post data');
+    con.query(`UPDATE post
+    SET date = '${req.params.date}', text = '${req.params.text}'
+    WHERE id = '${req.params.post_id}';`, 
+    function(err, results, fields){
+        SendData(res, err, results);
     });
-    */
+    
+})
+app.post('/posts/addLike/:postId/:userId',(req, res) => {
+
+    let ts = Date.now();
+
+    let date_ob = new Date(ts);
+    let date = date_ob.getDate();
+    let month = date_ob.getMonth() + 1;
+    let year = date_ob.getFullYear();
+
+    let ddd = year + "-" + month + "-" + date;
+    // prints date & time in YYYY-MM-DD format
+    console.log(ddd);
+
+    console.log(req.params);
+    console.log('adding likes on post ');
+    con.query(`INSERT INTO likes_post 
+    (user_id, post_id, date) VALUES ('${req.params.userId}', '${req.params.postId}', ${ddd});`, 
+    function(err, results, fields){
+        SendData(res, err, results);
+    });
+    
+})
+app.post('/posts/removeLike/:postId/:userId',(req, res) => {
+
+    console.log(req.params);
+    console.log('removing likes on post ');
+    con.query(`DELETE FROM likes_post WHERE user_id = ${req.params.userId} AND post_id = ${req.params.postId};`, 
+    function(err, results, fields){
+        SendData(res, err, results);
+    });
+    
+})
+app.get('/posts/getTags/:postId',(req, res) => {
+
+    console.log(req.params);
+    console.log('getting tags on post ');
+    con.query(`SELECT h.*
+    FROM hashtag h
+    JOIN hashtag_post pt ON h.id = pt.hash_id
+    JOIN post p ON pt.post_id = p.id
+    WHERE p.id = ${req.params.postId};`, 
+    function(err, results, fields){
+        SendData(res, err, results);
+    });
+    
+})
+app.post('/posts/addHash/:postId/:hashId',(req, res) => {
+
+    console.log(req.params);
+    console.log('removing likes on post ');
+    con.query(`INSERT INTO hashtag_post (hash_id, post_id) VALUES (${req.params.hashId}, ${req.params.postId});`, 
+    function(err, results, fields){
+        SendData(res, err, results);
+    });
+    
+})
+app.post('/posts/removeHash/:postId/:hashId',(req, res) => {
+
+    console.log(req.params);
+    console.log('removing likes on post ');
+    con.query(`DELETE FROM hashtag_post WHERE hash_id = ${req.params.hashId} AND post_id = ${req.params.postId}`, 
+    function(err, results, fields){
+        SendData(res, err, results);
+    });
+    
 })
 app.get('/posts/edit/grab_data/:post_id',(req, res) => {
     console.log("Grabbing post table data");
@@ -275,7 +384,14 @@ app.post('/users/edit/getFollowings/:id', (req,res)=>{
     `SELECT user.*
     FROM user
     INNER JOIN relationship ON relationship.user_id = ${req.params.id}
-    WHERE user.id = relationship.follow_id;;`, 
+    WHERE user.id = relationship.follow_id;`, 
+    function(err, results, fields){
+        SendData(res, err, results);
+    });
+})
+app.get('/users/edit/getPosts/:id', (req,res)=>{
+    console.log('getting posts from user');
+    con.query(`SELECT * FROM post WHERE user_id = ${req.params.id};`, 
     function(err, results, fields){
         SendData(res, err, results);
     });
@@ -366,3 +482,8 @@ function SendData(res, err, results){
         }
     }
 }
+
+
+app.get('*', (req,res)=>{
+    res.status(404).send('ERROR 404, Page not found!');
+})

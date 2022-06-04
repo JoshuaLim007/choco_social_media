@@ -81,22 +81,23 @@
 							</tr>
 						</table>
 					</div>
-					<div class="ContentContainer" style="display: flex; flex-direction: column; align-items: center;">
-						<h3>Posts</h3>
-						<table id="posts_table">
-							<tr class="tr_flex">
 
-							</tr>
-						</table>
-					</div>
 					<div class="ContentContainer" style="display: flex; flex-direction: column; align-items: center;">
+						<h3>User Posts</h3>
+						<a id ="userPostsRedirect">
+							<button>Go to posts</button>
+						</a>
+					</div>
+					<!-- <div class="ContentContainer" style="display: flex; flex-direction: column; align-items: center;">
 						<h3>Likes</h3>
 						<table id="likes_table">
 							<tr class="tr_flex">
 
 							</tr>
 						</table>
-					</div>
+					</div> -->
+
+					
 				</div>
 			</div>
 		</div>
@@ -124,6 +125,8 @@
 
         let userId = location.href.split('/').pop();
 		idField.value = userId;
+
+		userPostsRedirect.href = '/posts?userId=' + userId;
 
 		main.GetUserData(userId, function(results){
 			console.log(results);
@@ -176,6 +179,10 @@
 				);
 			}
 		});
+
+		main.CreateRequest('GET', '/users/edit/getPosts/' + userId, function(e){
+			console.log(e);
+		}, null);
 
 
 
