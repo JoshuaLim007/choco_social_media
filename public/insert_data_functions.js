@@ -124,10 +124,10 @@ export function InsertHashtag(id, name){
 
 	td_name.textContent = (name);
 	td_id.textContent = (id);
-	edit.textContent=("edit");
+	edit.textContent=("Show Posts");
 	btn.textContent=("delete");
 
-	edit.href = '/hashtags/edit/' + id;
+	edit.href = '/posts?hash=' + name;
 
 	btn.addEventListener('click', function(){
 		main.DeleteHashtags(id, tr);

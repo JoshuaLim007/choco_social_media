@@ -35,15 +35,17 @@
 		
 		<div class="edit_post_body">
 			<div class="">
-				<label for="create_new_text">Enter Text</label>
-				<input id="create_new_text" type="text">
-				<label for="create_new_date">Enter Date</label>
-				<input id="create_new_date" type="date">
-				<button id="change_btn" class="change_btn">Edit Post</button>
+				<label for="create_new_text">Text</label>
+				<input onchange="EnableApply()" id="create_new_text" type="text">
+				<label for="create_new_date">Date</label>
+				<input onchange="EnableApply()" id="create_new_date" type="date">
+				<button onclick="DisableApply()" id="change_btn" class="change_btn">Apply</button>
 			</div>
 			<div class="" style="display: flex;">
 				<div>
 					<h3>Hashtags used in post</h3>
+					<input type="number" id ="hashId">
+					<button id = "addHashButton">Add Hashtag</button>
 					<table id="post_hash_table">
 						<tr class="tr_flex">
 							<th>Hashtag IDs</th>
@@ -59,7 +61,11 @@
 					-->
 				</div>
 				<div>
+
 					<h3>Users who liked the post</h3>
+					<label>User Id</label>
+					<input type="number" id ="addLikeId">
+					<button id = "addLikeIdButton">Add Like</button>
 					<table id="post_user_table">
 						<tr class="">
 							<th>User IDs</th>
@@ -79,23 +85,88 @@
 		list of users who liked post
 		list of hashtags associated
 	-->
+	<script>
+		change_btn.disabled = true;
+		function EnableApply(){
+			change_btn.disabled = false;
+		}
+		function DisableApply(){
+			change_btn.disabled = true;
+		}
+		document.getElementById('addLikeIdButton').disabled = true;
+	</script>
 	<script type="module">
 		import * as main from "../../public/index.js";
 		import {SendPostData} from "../../public/update_data_functions.js";
-		import {InsertPostHash} from "../../public/insert_data_functions.js";
+		import {InsertPostHash, InsertRowToTable} from "../../public/insert_data_functions.js";
+		
+		var input = document.getElementById('addLikeId');
+		input.addEventListener('change', (e) =>{
+			document.getElementById('addLikeIdButton').disabled = false;
+		})
 
 		const lastSegment = location.href.split("/").pop();
 		main.GrabPost(lastSegment, function (parameter){
-			console.log(parameter[0][1]); //undefined
-			create_new_text.value = parameter[0][0].text;
-			create_new_date.value = parameter[0][0].date.split('T')[0];
-			//InsertPostHash(parameter[0][1].name);
-			//InsertPostUser(parameter[0][2].name);
+			parameter = parameter[0][0];
+			console.log(parameter);
+			var id = parameter.id;
+			var date = parameter.date.split('T')[0];
+			var text = parameter.text;
+			document.getElementById('create_new_text').value = text;
+			document.getElementById('create_new_date').value = date;
 
-			var btn = change_btn;
-			btn.addEventListener("click", ()=>{
-				SendPostData(parameter[0].id);
+
+			document.getElementById('addLikeIdButton').addEventListener('click', (e) =>{
+				document.getElementById('addLikeIdButton').disabled = true;
+
+				main.CreateRequest('POST', '/posts/addLike/' + id +'/' + input.value, (e) => {
+					console.log(e);
+					location.reload();
+				}, null);
 			})
+
+			document.getElementById('change_btn').addEventListener('click', function(){
+				main.CreateRequest('POST', '/posts/edit/' + id + '/' 
+				+ document.getElementById('create_new_text').value + '/'
+				+ document.getElementById('create_new_date').value)
+			})
+
+
+			document.getElementById('addHashButton').addEventListener('click', function(){
+				main.CreateRequest('POST', '/posts/addHash/' + id + '/' + document.getElementById('hashId').value, (e) =>{
+					console.log(e);
+					location.reload();
+				}, null);
+			})
+
+			main.CreateRequest('GET', '/posts/getTags/' + id, (e)=>{
+				console.log(e);
+				
+				for(var i  = 0; i < e.length; i++){
+					const ddwa = e[i].id;
+					const name = e[i].name;
+					InsertRowToTable('post_hash_table', [ddwa, name], (tr)=>{
+						tr.remove();
+						main.CreateRequest('POST', '/posts/removeHash/' + id + '/' + ddwa, (e)=>{}, null);
+					}, '/hashtags');
+				}
+
+			},null);
+			main.CreateRequest('GET', '/posts/getLikes/' + id, (e)=>{
+				for(var i  = 0; i < e.length; i++){
+					const userId = e[i].id;
+					const name = e[i].display_name;
+					InsertRowToTable('post_user_table', [userId, name], (tr)=>{
+						tr.remove();
+						main.CreateRequest('POST', '/posts/removeLike/' + id + '/' + userId, (e)=>{}, null);
+					}, '/users/edit/' + userId);
+				}
+
+			}, null);
+
+
+
 		})
+
 	</script>
 </html>

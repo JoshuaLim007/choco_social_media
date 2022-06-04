@@ -1,10 +1,17 @@
 import * as guiMaker from "./insert_data_functions.js";
 
 //grab all posts from server
-export function GrabPosts(callback){
+export function GrabPosts(filterQuery, callback){
     var req = new XMLHttpRequest();
 
-    req.open('GET','/posts/grabData',true); // set this to POST if you would like
+    var t = filterQuery.split('?')[1];
+    if(t == undefined){
+        t = '';
+    }
+    var url = '/posts/grabData/' + t;
+    console.log(url)
+
+    req.open('GET',url, true); // set this to POST if you would like
     req.addEventListener('load',()=>{
         let response = req.responseText;
         let parsedResponse = JSON.parse(response);
