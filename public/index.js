@@ -165,7 +165,7 @@ export function recursive_async_postDOMcreation(buffer, index, maxLength){
     }
 
     GrabUserFromId(buffer[index].user_id, (username) => {
-        guiMaker.InsertPost(buffer[index].id, username[0].display_name, buffer[index].text, buffer[index].date.split('T')[0], 0);
+        guiMaker.InsertPost(buffer[index].id, buffer[index].user_id, buffer[index].text, buffer[index].date.split('T')[0], 0);
         recursive_async_postDOMcreation(buffer, index + 1, maxLength);
     });
 
